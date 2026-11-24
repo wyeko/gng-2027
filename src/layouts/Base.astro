@@ -7,7 +7,7 @@ import fontLatinExt from '@fontsource-variable/archivo/files/archivo-latin-ext-w
 import { getImage } from 'astro:assets';
 import poster from '../assets/video/hero-poster.jpg';
 import { photo } from '../lib/assets';
-import { t, langs, pathFor, type Lang } from '../i18n';
+import { t, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
@@ -28,10 +28,9 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
     <title>{d.meta.title}</title>
     <meta name="description" content={d.meta.description} />
     <meta name="theme-color" content="#FFF6D6" />
+    <!-- private partner page: keep it out of search engines -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href={abs(pathFor(lang))} />
-    {langs.map((l) => <link rel="alternate" hreflang={l} href={abs(pathFor(l))} />)}
-    <link rel="alternate" hreflang="x-default" href={abs(pathFor('en'))} />
 
     <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
     {lang === 'hr' && <link rel="preload" href={fontLatinExt} as="font" type="font/woff2" crossorigin />}

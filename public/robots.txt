@@ -1,0 +1,3 @@
+# Private partner page — not for search engines.
+User-agent: *
+Disallow: /

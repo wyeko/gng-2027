@@ -13,8 +13,9 @@ npm run preview    # serve dist/
 
 Live: https://gng-2027.vercel.app (Vercel, deploys on every push to `main`).
 
-Canonical/hreflang/OG URLs default to that origin. When the site moves to its own
-domain, set `SITE_URL` in Vercel (Settings → Environment Variables) and redeploy.
+The site is private (shared with partners by link): it is blocked from search
+engines with a `noindex` meta tag, `robots.txt` and an `X-Robots-Tag` header
+(`vercel.json`). Link previews (Open Graph) still work when the link is shared.
 
 ## Where things live
 
