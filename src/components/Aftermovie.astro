@@ -1,0 +1,171 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import { photo } from '../lib/assets';
+import { site } from '../config';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).aftermovie;
+const films = [
+  { key: 'latest', label: d.latest, id: site.aftermovies.latest },
+  { key: 'y2025', label: d.y2025, id: site.aftermovies.y2025 },
+];
+const ready = films.some((f) => f.id);
+---
+
+<Section id="aftermovie" bg="blue" wide>
+  <div class="am__inner">
+    <SectionHead id="aftermovie" kicker={d.kicker} kickerClass="c-teal" lead={d.lead}>
+      {d.h2}
+      <div slot="aside" class="am__toggle" role="group" aria-label={d.toggleLabel} data-am-toggle>
+        {
+          films.map((f, i) => (
+            <button type="button" class="am__opt" aria-pressed={i === 0 ? 'true' : 'false'} data-film={f.id} disabled={!f.id && ready}>
+              {f.label}
+            </button>
+          ))
+        }
+      </div>
+    </SectionHead>
+  </div>
+
+  <div class="am" data-aftermovie>
+
+    <div class="am__frame" data-reveal="frame">
+      <Photo src={photo('flyjump')} alt={d.alt} sizes="(min-width: 1600px) 1600px, 100vw" class="am__poster" />
+      <button type="button" class="am__play" data-play aria-label={d.play} disabled={!ready}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4l14 8-14 8z"></path></svg>
+      </button>
+      <p class="tag k am__tag">{ready ? 'Aftermovie 2026' : d.pending}</p>
+      <div class="am__player" data-player hidden></div>
+    </div>
+  </div>
+  {/* TODO: paste the aftermovie YouTube IDs into src/config.ts (site.aftermovies) */}
+</Section>
+
+<style>
+  .am__inner {
+    max-width: calc(var(--wrap));
+    margin-inline: auto;
+  }
+  .am {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .am__toggle {
+    align-self: flex-end;
+    display: flex;
+    border: 1.5px solid var(--teal-text);
+    border-radius: var(--r-pill);
+    padding: 3px;
+    background: rgb(255 255 255 / 0.6);
+  }
+  .am__opt {
+    min-height: 40px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: var(--r-pill);
+    background: transparent;
+    color: var(--teal-text);
+    font-weight: 700;
+    font-size: var(--fs-13);
+    cursor: pointer;
+  }
+  .am__opt[aria-pressed='true'] {
+    background: var(--teal-text);
+    color: var(--white);
+  }
+  .am__opt:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .am__frame {
+    position: relative;
+    aspect-ratio: 16 / 8;
+    border-radius: var(--r-big);
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .am__frame :global(.am__poster) {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+  }
+  .am__frame :global(.am__poster img) {
+    transition: transform 600ms var(--out);
+  }
+  .am__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    width: 104px;
+    height: 104px;
+    margin: -52px 0 0 -52px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--orange);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 16px 40px -16px rgb(14 47 79 / 0.6);
+    transition: transform 250ms var(--pop);
+  }
+  .am__play svg {
+    width: 38px;
+    height: 38px;
+    fill: var(--ink);
+    /* optical centre: the triangle's weight sits left */
+    transform: translateX(3px);
+  }
+  .am__play:disabled {
+    cursor: default;
+  }
+  @media (hover: hover) {
+    .am__frame:hover :global(.am__poster img) {
+      transform: scale(1.03);
+    }
+    .am__frame:hover .am__play:not(:disabled) {
+      transform: scale(1.08);
+    }
+  }
+  .am__tag {
+    left: 24px;
+    bottom: 24px;
+  }
+  .am__player {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: #000;
+  }
+  .am__player :global(iframe) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  @media (max-width: 639px) {
+    .am__frame {
+      aspect-ratio: 4 / 3;
+      border-radius: var(--r-card);
+    }
+    .am__play {
+      width: 80px;
+      height: 80px;
+      margin: -40px 0 0 -40px;
+    }
+    .am__play svg {
+      width: 30px;
+      height: 30px;
+    }
+    .am__tag {
+      left: 14px;
+      bottom: 14px;
+    }
+  }
+</style>

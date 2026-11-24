@@ -1,0 +1,68 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import { siteSet } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).media;
+// article cards carried over from the current site (medij-1..4.webp)
+const articles = siteSet('medij-');
+---
+
+<Section id="media" bg="mesh">
+  <SectionHead id="media" kicker={d.kicker} lead={d.lead} split>{d.h2}</SectionHead>
+  <ul class="chips media__outlets" aria-label={d.kicker} data-reveal="stagger">
+    {d.outlets.map((o) => <li class="chip chip--outlet">{o}</li>)}
+  </ul>
+  {
+    articles.length > 0 && (
+      <ul class="media__articles" role="list" data-reveal="stagger">
+        {articles.map((a) => (
+          <li>
+            <Photo src={a.src} alt={d.articleAlt} sizes="(min-width: 1024px) 300px, 50vw" class="media__article" />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  {/* TODO: copy medij-1..4.webp (and their article links) from the current site into src/assets/site/ */}
+</Section>
+
+<style>
+  .media__outlets {
+    gap: 10px;
+  }
+  .chip--outlet {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-family: var(--font-wide);
+    font-stretch: 125%;
+    font-weight: 700;
+    font-size: var(--fs-13);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--card);
+  }
+  .media__articles {
+    margin: 32px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .media__articles :global(.media__article) {
+    background: var(--white);
+  }
+  .media__articles :global(.media__article img) {
+    object-fit: contain;
+  }
+  @media (max-width: 899px) {
+    .media__articles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

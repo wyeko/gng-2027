@@ -1,0 +1,59 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '../styles/global.css';
+import '../styles/motion.css';
+import fontLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+import fontLatinExt from '@fontsource-variable/archivo/files/archivo-latin-ext-wdth-normal.woff2?url';
+import { getImage } from 'astro:assets';
+import poster from '../assets/video/hero-poster.jpg';
+import { photo } from '../lib/assets';
+import { t, langs, pathFor, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+
+const abs = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
+const og = await getImage({ src: photo('aerial'), width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 });
+const posterImg = await getImage({ src: poster, width: 600, format: 'webp', quality: 78 });
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{d.meta.title}</title>
+    <meta name="description" content={d.meta.description} />
+    <meta name="theme-color" content="#FFF6D6" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={abs(pathFor(lang))} />
+    {langs.map((l) => <link rel="alternate" hreflang={l} href={abs(pathFor(l))} />)}
+    <link rel="alternate" hreflang="x-default" href={abs(pathFor('en'))} />
+
+    <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
+    {lang === 'hr' && <link rel="preload" href={fontLatinExt} as="font" type="font/woff2" crossorigin />}
+    <link rel="preload" as="image" href={posterImg.src} fetchpriority="high" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={d.ogLocale} />
+    <meta property="og:title" content={d.meta.title} />
+    <meta property="og:description" content={d.meta.description} />
+    <meta property="og:image" content={abs(og.src)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- reveal states only apply when JS is running -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{d.nav.skip}</a>
+    <slot />
+    <script>
+      import '../scripts/main.ts';
+    </script>
+  </body>
+</html>

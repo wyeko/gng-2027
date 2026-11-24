@@ -1,0 +1,100 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import { photo, siteSet } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).beyond;
+const murals = [
+  'mural_boy',
+  'mural_pink',
+  'mural_blue',
+  'mural_car',
+  'mural_flowers',
+  'mural_yellow',
+  'mural_colour',
+  'mural_scaffold',
+] as const;
+// plus murals carried over from the current site (mural-*.webp)
+const extra = siteSet('mural-');
+---
+
+<Section id="beyond" bg="swirl">
+  <SectionHead id="beyond" kicker={d.kicker} kickerClass="c-teal" lead={d.lead}>
+    {d.h2}
+    <ul slot="aside" class="beyond__stats" role="list" data-reveal="stagger">
+      {
+        d.stats.map((s) => (
+          <li>
+            <p class="d t-40 c-teal rise-num">
+              <span>{s.value}</span>
+            </p>
+            <p>{s.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </SectionHead>
+
+  <ul class="beyond__murals rail" role="list" aria-label={d.railLabel} tabindex="0" data-reveal="stagger">
+    {
+      murals.map((m) => (
+        <li>
+          <Photo src={photo(m)} alt={d.alts[m]} ratio="3 / 4" sizes="(min-width: 1024px) 300px, 62vw" />
+        </li>
+      ))
+    }
+    {
+      extra.map((m) => (
+        <li>
+          <Photo src={m.src} alt={d.alts.site} ratio="3 / 4" sizes="(min-width: 1024px) 300px, 62vw" />
+        </li>
+      ))
+    }
+  </ul>
+  {/* TODO: copy mural-*.webp from the current site into src/assets/site/ */}
+</Section>
+
+<style>
+  .beyond__stats {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0;
+    align-self: flex-end;
+  }
+  .beyond__stats li {
+    padding: 14px 28px 0;
+    border-left: 1.5px solid var(--rule);
+    border-top: 1.5px solid var(--rule);
+    min-width: 11em;
+  }
+  .beyond__stats li:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .beyond__stats li p:last-child {
+    margin-top: 6px;
+  }
+  /* a gallery on desktop, a swipeable rail on phones */
+  .beyond__murals {
+    --rail-w: 62vw;
+  }
+  @media (min-width: 768px) {
+    .beyond__murals {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+      padding-bottom: 0;
+    }
+  }
+  .beyond__murals:focus-visible {
+    outline-offset: 6px;
+  }
+</style>

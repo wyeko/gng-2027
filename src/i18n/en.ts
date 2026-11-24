@@ -1,0 +1,301 @@
+/**
+ * English copy. Every figure comes from GNG's own 2026 data (see brief);
+ * do not add numbers that are not in the source.
+ */
+export const en = {
+  lang: 'en',
+  ogLocale: 'en_GB',
+  meta: {
+    title: 'GNG 2027 Partnership · Graffiti na Gradele, Bol',
+    description:
+      'Partner with Graffiti na Gradele 2027, an international mural, graffiti and music festival in Bol on Brač, 21–25 July 2027. Brand activations that are part of the programme, not an ad next to it.',
+  },
+  nav: {
+    skip: 'Skip to content',
+    label: 'Partnership 2027',
+    cta: "Let's talk",
+    langGroup: 'Language',
+    logoAlt: 'Graffiti na Gradele, home',
+    sections: 'Sections',
+  },
+  hero: {
+    kicker: '16th edition · 21–25 July 2027 · Bol, Brač',
+    h1a: 'At GNG, brands are part of the programme.',
+    h1b: 'Not an ad next to it.',
+    lead: 'An international mural, graffiti and music festival in an abandoned beachfront hotel in Bol. Murals, hip-hop, battles and the sea, from morning till morning.',
+    ctaPrimary: 'Partnership options',
+    ctaSecondary: 'Watch the aftermovie',
+    sticker: { big: '21.–25.7.', small: '2027', full: '21–25 July 2027' },
+    videoLabel: 'Festival highlights: Bol coastline, Zlatni rat beach, sea jumps and the crowd at night',
+    statsLabel: 'GNG 2026 at a glance',
+    stats: [
+      { value: '~3,000', label: 'visitors per programme day' },
+      { value: '1.59M', label: 'Instagram views, July 2026' },
+      { value: '109.6K', label: 'accounts reached in 30 days' },
+      { value: '70+', label: 'media articles in 2026' },
+    ],
+    awardsLabel: 'Recognition',
+    awards: ['Among the TOP 10 global street art events', "Croatia's best boutique festival", 'Bol Municipality Annual Award'],
+  },
+  what: {
+    kicker: 'What, how and when',
+    h2: 'Walls, beats, battles and the sea.',
+    lead: 'The 16th edition, 21–25 July 2027, in Bol on the island of Brač. Five days that start on the beach in the morning and end at 585 Club the next morning.',
+    pillars: [
+      { title: 'Graffiti & murals', text: 'Large-scale murals by renowned international artists.', alt: 'Artist painting a large green mural' },
+      { title: 'Concerts', text: 'Hip-hop concerts, plus daytime and evening DJ sets.', alt: 'Concert crowd under red stage lights' },
+      { title: 'Workshops', text: 'Graffiti and DJ workshops, including a graffiti workshop for kids.', alt: 'Young participant drawing at a workshop table full of markers' },
+      { title: 'Beach & lounge', text: 'An abandoned beachfront hotel with a lounge in the pine forest.', alt: 'Lounge terrace under the pines' },
+      { title: 'Activations', text: 'Cliff jumping, sea races and a graffiti sketch battle, each with a brand.', alt: 'Floating race participant running into the sea with an inflatable' },
+      { title: 'Sports & dance', text: 'Hip-hop dance battles, b-boying and a street basketball tournament.', alt: 'B-boy dancing in a circle of spectators' },
+    ],
+  },
+  place: {
+    kicker: 'The place',
+    h2a: 'Beach by day.',
+    h2b: '585 Club by night.',
+    lead: 'The festival lives in Bol on the island of Brač, in an abandoned beachfront hotel complex with a lounge in the pine forest. Murals, workshops and activations by day, concerts and DJs by night.',
+    note: 'Beyond July, GNG is active across Croatia all year with concerts, large-scale murals, brand activations and workshops.',
+    alts: {
+      island: 'Bol coastline with the Dominican monastery and turquoise sea',
+      club585: 'Night concert at 585 Club',
+      cliff: 'Two people jumping off a cliff into the sea',
+      aerial: 'Aerial view of swimmers with inflatables in a turquoise sea',
+      lounge_people: 'Festival visitors relaxing in the lounge under bunting',
+    },
+  },
+  numbers: {
+    kicker: 'GNG 2026',
+    h2: 'The programme in numbers.',
+    stats: [
+      { value: '10', label: 'mural locations' },
+      { value: '15', label: 'artists' },
+      { value: '2', label: 'nights at 585 Club' },
+      { value: '12', label: 'hip-hop acts' },
+      { value: '15', label: 'DJs' },
+      { value: '~60', label: 'street basketball players' },
+    ],
+    plusLabel: 'Plus',
+    plus: ['b-boying', 'workshops', 'sea jumping', 'sketch battle', 'sea races', 'pub quiz', 'beer pong'],
+    alts: {
+      lights: 'Crowd with phone lights raised at a night concert',
+      battle_dance: 'Hip-hop dancer performing in the battle circle',
+      jumpers: 'People jumping into the sea by the monastery',
+    },
+  },
+  audience: {
+    kicker: 'Audience',
+    h2: 'The audience brands look for.',
+    photoAlt: 'Two festival visitors laughing on the beach',
+    visitors: {
+      title: 'Festival visitors',
+      rows: [
+        { value: '18–35', label: 'most visitors are 18 to 35' },
+        { value: '60:40', label: 'female to male' },
+        { value: '4 cities', label: 'major Croatian cities, mainly Zagreb and Split' },
+      ],
+      growingLabel: 'Growing',
+      growing: 'Sinj, Metković, Zadar',
+      regionalLabel: 'Regional',
+      regional: 'Ljubljana, Sarajevo, Belgrade',
+      interestsLabel: 'Interests',
+      interests: ['street & high fashion', 'design', 'alternative lifestyles', 'urban music', 'nightlife'],
+    },
+    instagram: {
+      title: 'Instagram audience by age',
+      period: 'July 2026',
+      ages: [
+        { label: '13–17', value: 0.7 },
+        { label: '18–24', value: 17.3 },
+        { label: '25–34', value: 40.8 },
+        { label: '35–44', value: 28.4 },
+        { label: '45–54', value: 10 },
+        { label: '55–64', value: 1.7 },
+        { label: '65+', value: 0.9 },
+      ],
+      highlight: '25–44 = 69.2%',
+      note: 'Festival visitors (mostly 18–35) and the Instagram audience (69.2% aged 25–44) are different audiences, so both are true.',
+      countriesTitle: 'Top countries',
+      countries: [
+        { label: 'Croatia', value: 73.5 },
+        { label: 'Serbia', value: 3.7 },
+        { label: 'Germany', value: 3.4 },
+        { label: 'Bosnia and Herzegovina', value: 2.8 },
+        { label: 'United States', value: 1.4 },
+      ],
+    },
+  },
+  results: {
+    kicker: 'Results, July 2026',
+    h2: 'Organic reach, no paid promotion.',
+    meta: 'Instagram, 5 July – 3 August 2026. Organic, run by the GNG in-house team.',
+    reference: 'Total views 1.59M, +379% vs June.',
+    stats: [
+      { value: '109.6K', label: 'accounts reached' },
+      { value: '20.9K', label: 'interactions' },
+      { value: '819', label: 'new followers' },
+      { value: '45.5%', label: 'views from non-followers' },
+      { value: '25,872', label: 'profile visits' },
+      { value: '1,401', label: 'bio link taps' },
+      { value: '14.3', label: 'views per reached account' },
+    ],
+    viewsTitle: 'Views by format',
+    views: [
+      { label: 'Stories', value: 807, display: '807K' },
+      { label: 'Posts', value: 599, display: '599K' },
+      { label: 'Reels', value: 180, display: '180K' },
+    ],
+    interactionsTitle: 'Interactions by format',
+    interactions: [
+      { label: 'Posts', value: 9.7, display: '9.7K' },
+      { label: 'Stories', value: 6.3, display: '6.3K' },
+      { label: 'Reels', value: 4.8, display: '4.8K' },
+    ],
+    insight: 'Stories carry repeated logo presence; posts drive the deepest engagement.',
+    goalLabel: 'Goal 2027',
+    goal: 'Beat 2026 reach and visibility.',
+  },
+  social: {
+    kicker: 'Social',
+    h2: 'As seen on @graffitinagradele',
+    storiesTitle: '2026 activation stories',
+    storyAlt: 'Instagram story poster for a 2026 brand activation',
+    postsTitle: 'Posts',
+    postFallback: 'View this post on Instagram',
+    follow: 'Follow @graffitinagradele',
+    railHint: 'Scroll sideways for more',
+  },
+  media: {
+    kicker: 'In the media',
+    h2: '70+ articles in 2026.',
+    lead: 'TV segments on Nova TV, print in Slobodna Dalmacija, 24sata and more.',
+    outlets: ['Index.hr', 'Vogue Adria', 'Fashion.hr', 'Journal.hr', 'Journal.rs', 'HRT', 'Dnevnik.hr', 'Dalmatinski portal', 'Slobodna Dalmacija'],
+    articleAlt: 'Media coverage of GNG 2026',
+  },
+  music: {
+    kicker: 'Music',
+    h2: 'Hip-hop at GNG.',
+    lead: 'The biggest names in regional hip-hop, live at 585 Club.',
+    disclaimer: 'Artists shown illustrate GNG’s musical identity. This is not a confirmed 2027 line-up.',
+    alts: {
+      party: 'Crowd dancing under red lights',
+      crowd_night: 'Packed courtyard at night',
+    },
+  },
+  activations: {
+    kicker: 'Brand activations',
+    h2: 'Brands that play along.',
+    principles: [
+      { title: 'Part of the programme', text: 'Every brand gets its own activation, run by the GNG team, with brand and festival prizes.' },
+      { title: 'Never intrusive', text: 'Announced as part of the programme, so people join willingly and create content worth sharing.' },
+      { title: 'Category exclusive', text: 'One brand per category. Complementary brands can share an activation, like the dance battles.' },
+    ],
+    gallery: [
+      { photo: 'race', brand: 'Karlovačko', what: 'Floating race', alt: 'Karlovačko floating race participant running into the sea' },
+      { photo: 'jager_stage', brand: 'Jägermeister', what: 'Stage', alt: 'Jägermeister Orange stage with a crowd' },
+      { photo: 'nivea_wall', brand: 'NIVEA', what: 'Mural wall', alt: 'NIVEA Crème de la Crème mural wall' },
+      { photo: 'nivea_bar', brand: 'NIVEA', what: 'Bar', alt: 'NIVEA beach bar with DJs' },
+      { photo: 'battle', brand: 'G-SHOCK', what: 'Battles', alt: 'Hip-hop battle in a full circle of spectators' },
+      { photo: 'gshock_art', brand: 'G-SHOCK', what: 'Graffiti piece', alt: 'G-SHOCK graffiti piece in pink and silver' },
+      { photo: 'pipi_bar', brand: 'Pipi', what: 'Beach bar', alt: 'Pipi bar on the beach' },
+      { photo: 'redbull_dj', brand: 'Red Bull', what: 'DJ booth', alt: 'Red Bull DJ booth' },
+      { photo: 'a1_stage', brand: 'A1', what: 'Stage', alt: 'A1 branded stage at night' },
+      { photo: 'kids', brand: 'Urbanka', what: 'Kids graffiti workshop', alt: 'Child drawing at the Urbanka graffiti workshop' },
+    ],
+  },
+  partners: {
+    kicker: 'Partners',
+    h2: 'Partners through the years.',
+    list: ['G-SHOCK', 'A1', 'IZIPIZI', 'JGL', 'Rio Mare', 'Borotalco', 'Elephant', 'Jägermeister', 'NIVEA', 'T-HT (bonbon)', 'Red Bull', 'Jamnica', 'Karlovačko', 'Pipi', 'Bluesun Hotels', 'Studena', 'Montana Cans', 'Loop Colors', 'Samsung', 'Erste Bank', 'Sky', 'Flixbus', 'Honor', 'LELO'],
+    supportLabel: 'With the support of',
+    support: ['Ministry of Culture and Media', 'Municipality of Bol', 'Split-Dalmatia County', 'Bol Tourist Board'],
+  },
+  options: {
+    kicker: 'Partnership options',
+    h2: 'What a partnership includes.',
+    lead: 'Every package includes category exclusivity. Every activation is designed together with the brand.',
+    picker: {
+      legend: 'An idea for your category',
+      cats: [
+        { id: 'pice', label: 'Drinks', idea: 'A sea race or jumping contest in your colours, your bar in the lounge and your moment at 585 Club.' },
+        { id: 'tech', label: 'Tech & telecom', idea: 'A battle or tournament under your name, a content corner made for sharing and prizes for participants.' },
+        { id: 'moda', label: 'Fashion & lifestyle', idea: 'A live mural wall with your product, a graffiti sketch battle and co-branded festival merch.' },
+        { id: 'ljepota', label: 'Beauty & care', idea: 'A sea battle in your colours, a branded mural wall and a chill zone in the pine lounge.' },
+        { id: 'financije', label: 'Banking & finance', idea: 'A workshop or kids programme under your name, a mural in your city and giveaways all summer.' },
+        { id: 'hrana', label: 'Food', idea: 'A beach tournament with your product as the prize, your corner in the lounge and sampling at the concerts.' },
+        { id: 'putovanja', label: 'Travel & mobility', idea: 'Getting to Bol with you, a travel giveaway to the festival and your chill zone by the sea.' },
+        // TODO: replace with the exact "Other" text from the current site once it is mirrored.
+        { id: 'ostalo', label: 'Other', idea: 'Tell us your category and your goal, and we will come back with an activation built around it.' },
+      ],
+    },
+    includedLabel: 'Every partnership',
+    included: [
+      { title: 'Online', text: 'Newsletters, press releases, media partners, GNG social media and giveaways.' },
+      { title: 'Offline', text: 'Posters, billboards, flyers, gadgets and merchandise.' },
+      { title: 'Tailored activation', text: 'A co-branded contest, race, battle, tournament or workshop run by the GNG team.' },
+      { title: 'On-site production', text: 'Lounge setup, bar design and stage branding.' },
+      { title: 'Year-round', text: 'Concerts, murals, activations and workshops across Croatia, beyond the festival.' },
+    ],
+    exclusive: 'Always: category exclusivity.',
+    cta: { title: 'Have an idea?', text: 'Bring it to Bol. We shape it into a slot in the programme with you.', button: 'Write to us' },
+  },
+  beyond: {
+    kicker: 'Beyond Bol',
+    h2: 'Walls across Croatia.',
+    lead: 'Alongside the festival, GNG paints murals five to seven storeys high across Croatia and the region, with concerts, DJ sets and audience activations.',
+    stats: [
+      { value: '30+', label: 'large residential buildings' },
+      { value: '50+', label: 'smaller murals, under 100 m²' },
+    ],
+    alts: {
+      mural_boy: 'Mural of a boy on a residential building',
+      mural_pink: 'Pink abstract mural on a building',
+      mural_blue: 'Blue mural on an apartment block',
+      mural_car: 'Colourful mural with a red car',
+      mural_flowers: 'Mural with cartoon flowers',
+      mural_yellow: 'Yellow and blue graphic mural on a parking structure',
+      mural_colour: 'Colourful geometric mural across hotel balconies',
+      mural_scaffold: 'Artist painting a mural from scaffolding',
+      site: 'GNG mural',
+    },
+    railLabel: 'GNG murals',
+  },
+  aftermovie: {
+    kicker: 'Aftermovie',
+    h2: 'See it for yourself.',
+    lead: 'Five days in two minutes: the beach, the walls, the battles and 585 Club.',
+    toggleLabel: 'Choose aftermovie',
+    latest: 'Latest',
+    y2025: 'GNG 2025',
+    play: 'Play the aftermovie',
+    alt: 'Two people jumping into the sea',
+    pending: 'Video coming soon',
+  },
+  merch: {
+    kicker: 'Merch',
+    h2: 'Only in Bol.',
+    lead: 'A limited GNG collection, sold only in Bol during the festival.',
+    alt: 'Visitor wearing a GNG festival T-shirt',
+    siteAlt: 'GNG merch',
+  },
+  contact: {
+    h2: "Let's make GNG 2027 together.",
+    lead: 'Tell us what you want to achieve and we will come back with an activation, timeline and budget.',
+    button: 'Write to us',
+    mailSubject: 'GNG 2027 partnership',
+    social: 'Follow GNG',
+    footer: 'GNG is organised by a collective of young people, independently and without external agencies.',
+  },
+};
+
+type Widen<T> = T extends string
+  ? string
+  : T extends number
+    ? number
+    : T extends readonly (infer U)[]
+      ? Widen<U>[]
+      : T extends object
+        ? { [K in keyof T]: Widen<T[K]> }
+        : T;
+
+export type Dict = Widen<typeof en>;

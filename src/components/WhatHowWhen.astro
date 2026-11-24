@@ -1,0 +1,92 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import { photo } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).what;
+
+// two large pillars, four small: breaks the uniform 3×2 grid
+const layout = [
+  { name: 'painter', size: 'lg', pos: '50% 35%' },
+  { name: 'concert_red', size: 'lg', pos: '50% 40%' },
+  { name: 'kids', size: 'sm', pos: '30% 50%' },
+  { name: 'lounge', size: 'sm', pos: '50% 50%' },
+  { name: 'race', size: 'sm', pos: '50% 40%' },
+  { name: 'bboy', size: 'sm', pos: '50% 60%' },
+] as const;
+---
+
+<Section id="what" bg="baby">
+  <SectionHead id="what" kicker={d.kicker} lead={d.lead} split>{d.h2}</SectionHead>
+  <ul class="pillars" role="list" data-reveal="stagger">
+    {
+      d.pillars.map((p, i) => {
+        const l = layout[i];
+        return (
+          <li class:list={['pillar', `pillar--${l.size}`]}>
+            <Photo
+              src={photo(l.name)}
+              alt={p.alt}
+              ratio={l.size === 'lg' ? '3 / 2' : '4 / 3'}
+              pos={l.pos}
+              sizes={l.size === 'lg' ? '(min-width: 1024px) 600px, (min-width: 640px) 50vw, 100vw' : '(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw'}
+            />
+            <h3 class="d t-22">{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+
+<style>
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 32px 20px;
+    margin: 0;
+    padding: 0;
+  }
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pillar--lg {
+    grid-column: span 6;
+  }
+  .pillar--sm {
+    grid-column: span 3;
+  }
+  .pillar .media {
+    margin-bottom: 4px;
+  }
+  @media (max-width: 1023px) {
+    .pillar--sm {
+      grid-column: span 6;
+    }
+  }
+  @media (max-width: 639px) {
+    .pillars {
+      gap: 28px 14px;
+    }
+    .pillar--lg {
+      grid-column: span 12;
+    }
+    .pillar--sm {
+      grid-column: span 6;
+    }
+    .pillar--sm h3 {
+      font-size: var(--fs-16);
+    }
+    .pillar--sm p {
+      font-size: var(--fs-13);
+    }
+  }
+</style>

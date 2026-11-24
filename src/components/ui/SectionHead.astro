@@ -1,0 +1,22 @@
+---
+interface Props {
+  id: string;
+  kicker?: string;
+  kickerClass?: string;
+  lead?: string;
+  /** put the lead beside the title (desktop) instead of under it */
+  split?: boolean;
+  class?: string;
+}
+const { id, kicker, kickerClass = 'c-magenta', lead, split = false, class: cls } = Astro.props;
+---
+
+<header class:list={['sec-head', { 'sec-head--split': split }, cls]} data-reveal="up">
+  <div class="sec-head__main">
+    {kicker && <p class:list={['k', kickerClass]}>{kicker}</p>}
+    <h2 id={`${id}-title`} class="d h2"><slot /></h2>
+    {lead && !split && <p class="lead">{lead}</p>}
+  </div>
+  {lead && split && <p class="lead">{lead}</p>}
+  <slot name="aside" />
+</header>

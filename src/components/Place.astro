@@ -1,0 +1,89 @@
+---
+import Section from './ui/Section.astro';
+import Photo from './ui/Photo.astro';
+import Sparkle from './ui/Sparkle.astro';
+import { photo } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).place;
+---
+
+<Section id="place" bg="blue">
+  <div class="place">
+    <div class="place__copy">
+      <header class="spray-on-scroll stack place__head" data-reveal="up">
+        <p class="k c-teal">{d.kicker}</p>
+        <h2 id="place-title" class="d h2">
+          {d.h2a}
+          <span class="spray accent">{d.h2b}</span>
+        </h2>
+      </header>
+      <p class="lead" data-reveal="up">{d.lead}</p>
+      <p class="place__note" data-reveal="up">{d.note}</p>
+      <div class="cloud-wrap place__aerial" data-reveal="up">
+        <Photo src={photo('aerial')} alt={d.alts.aerial} cloud sizes="(min-width: 1024px) 420px, 90vw" />
+        <Sparkle class="sparkle--a" size={36} style="right:6%;top:2%" />
+        <Sparkle size={18} style="right:15%;top:12%" />
+      </div>
+    </div>
+    <div class="place__mosaic" data-reveal="stagger">
+      <Photo class="place__tall" src={photo('island')} alt={d.alts.island} pos="62% 50%" sizes="(min-width: 1024px) 380px, 50vw" />
+      <Photo src={photo('club585')} alt={d.alts.club585} ratio="4 / 3" sizes="(min-width: 1024px) 380px, 50vw" />
+      <Photo src={photo('cliff')} alt={d.alts.cliff} ratio="4 / 3" pos="60% 50%" sizes="(min-width: 1024px) 380px, 50vw" />
+      <Photo class="place__wide" src={photo('lounge_people')} alt={d.alts.lounge_people} ratio="16 / 7" sizes="(min-width: 1024px) 780px, 100vw" />
+    </div>
+  </div>
+</Section>
+
+<style>
+  .place {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  .place__copy {
+    flex: 1 1 360px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .place__head {
+    gap: 14px;
+  }
+  .place__note {
+    padding: 16px 20px;
+    border-radius: 20px;
+    background: rgb(255 255 255 / 0.85);
+  }
+  .place__aerial {
+    margin-top: 8px;
+    max-width: 440px;
+  }
+  .place__mosaic {
+    flex: 1.4 1 520px;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .place__mosaic :global(.place__tall) {
+    grid-row: span 2;
+    min-height: 420px;
+  }
+  .place__mosaic :global(.place__wide) {
+    grid-column: span 2;
+  }
+  @media (max-width: 639px) {
+    .place {
+      gap: 32px;
+    }
+    .place__mosaic :global(.place__tall) {
+      min-height: 300px;
+    }
+  }
+</style>

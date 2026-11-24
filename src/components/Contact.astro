@@ -1,0 +1,120 @@
+---
+import logoWhite from '../assets/brand/logo-white.svg?url';
+import { site } from '../config';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).contact;
+const mail = `mailto:${site.contactEmail}?subject=${encodeURIComponent(d.mailSubject)}`;
+const socials = [
+  { label: 'Instagram', href: site.social.instagram },
+  { label: 'Facebook', href: site.social.facebook },
+  { label: 'YouTube', href: site.social.youtube },
+].filter((s) => s.href);
+---
+
+<section id="contact" class="contact grain on-pink" aria-labelledby="contact-title">
+  <div class="wrap contact__main">
+    <div class="contact__copy" data-reveal="up">
+      <h2 id="contact-title" class="d h2">{d.h2}</h2>
+      <p class="lead">{d.lead}</p>
+      <div class="contact__actions">
+        <a class="btn btn--white" href={mail}>{d.button}</a>
+        <p class="contact__person">
+          <strong>{site.contactName}</strong><br />
+          <a href={mail}>{site.contactEmail}</a>
+        </p>
+      </div>
+    </div>
+    <img class="contact__logo" src={logoWhite} width="332" height="256" alt="" aria-hidden="true" loading="lazy" />
+  </div>
+  <footer class="wrap contact__foot">
+    <p>{d.footer}</p>
+    {
+      socials.length > 0 && (
+        <ul class="contact__social" aria-label={d.social}>
+          {socials.map((s) => (
+            <li>
+              <a href={s.href} rel="noopener" target="_blank">
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </footer>
+</section>
+
+<style>
+  .contact {
+    background: var(--pink-cta);
+    color: var(--white);
+  }
+  .contact__main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--sec-pad);
+    padding-bottom: 48px;
+  }
+  .contact__copy {
+    flex: 1 1 520px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    align-items: center;
+  }
+  .contact__person {
+    line-height: 1.5;
+  }
+  .contact__person a {
+    color: var(--white);
+  }
+  .contact__person a:hover {
+    color: var(--cream);
+  }
+  .contact__logo {
+    flex: 0 1 340px;
+    width: 340px;
+    max-width: 70%;
+    height: auto;
+  }
+  .contact__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 32px;
+    padding-top: 18px;
+    padding-bottom: 32px;
+    border-top: 1px solid rgb(255 255 255 / 0.35);
+    font-size: var(--fs-13);
+    line-height: 1.6;
+  }
+  .contact__social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 16px;
+  }
+  .contact__social a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--white);
+  }
+  .contact__social a:hover {
+    color: var(--cream);
+  }
+</style>

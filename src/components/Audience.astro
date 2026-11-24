@@ -1,0 +1,174 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import Sparkle from './ui/Sparkle.astro';
+import MeterList from './ui/MeterList.astro';
+import { photo } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang).audience;
+const v = d.visitors;
+const ig = d.instagram;
+---
+
+<Section id="audience" bg="pink">
+  <SectionHead id="audience" kicker={d.kicker}>{d.h2}</SectionHead>
+
+  <div class="aud">
+    <div class="cloud-wrap aud__photo" data-reveal="up">
+      <Photo src={photo('laugh')} alt={d.photoAlt} cloud pos="70% 40%" sizes="(min-width: 1024px) 480px, 100vw" />
+      <Sparkle class="sparkle--a" size={40} style="right:4%;top:2%" />
+      <Sparkle size={20} style="right:13%;top:12%" />
+    </div>
+
+    <article class="card card--solid aud__visitors" data-reveal="up" aria-labelledby="aud-visitors">
+      <h3 id="aud-visitors" class="k c-teal">{v.title}</h3>
+      <dl class="aud__rows">
+        {
+          v.rows.map((r) => (
+            <div class="aud__row">
+              <dt class="d t-32 c-teal">{r.value}</dt>
+              <dd>{r.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <dl class="aud__cities">
+        <div><dt class="k c-magenta">{v.growingLabel}</dt><dd>{v.growing}</dd></div>
+        <div><dt class="k c-magenta">{v.regionalLabel}</dt><dd>{v.regional}</dd></div>
+      </dl>
+      <div class="aud__interests">
+        <p class="k c-magenta">{v.interestsLabel}</p>
+        <ul class="chips">
+          {v.interests.map((i) => <li class="chip chip--blush">{i}</li>)}
+        </ul>
+      </div>
+    </article>
+
+    <article class="card card--solid aud__ages" data-reveal="up" aria-labelledby="aud-ages">
+      <div class="aud__chart-head">
+        <h3 id="aud-ages" class="k c-teal">{ig.title}</h3>
+        <p class="t-13">{ig.period}</p>
+      </div>
+      <p class="d t-32 c-teal aud__highlight">{ig.highlight}</p>
+      <MeterList rows={ig.ages} label={ig.title} unit="%" highlight={['25–34', '35–44']} lang={lang} />
+      <p class="aud__note t-13">{ig.note}</p>
+    </article>
+
+    <article class="card card--solid aud__countries" data-reveal="up" aria-labelledby="aud-countries">
+      <h3 id="aud-countries" class="k c-teal">{ig.countriesTitle}</h3>
+      <p class="t-13 aud__period">{ig.period}</p>
+      <MeterList rows={ig.countries} label={ig.countriesTitle} unit="%" lang={lang} />
+    </article>
+  </div>
+</Section>
+
+<style>
+  .aud {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+  .aud__photo {
+    grid-column: span 5;
+    align-self: center;
+  }
+  .aud__visitors {
+    grid-column: span 7;
+  }
+  .aud__ages {
+    grid-column: span 7;
+  }
+  .aud__countries {
+    grid-column: span 5;
+  }
+  .card {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .aud__rows {
+    margin: 0;
+    display: grid;
+  }
+  .aud__row {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--light-blue);
+  }
+  .aud__row dt {
+    min-width: 6.2em;
+    flex: none;
+  }
+  .aud__row dd,
+  .aud__cities dd {
+    margin: 0;
+  }
+  .aud__cities {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .aud__cities dt {
+    margin-bottom: 4px;
+  }
+  .aud__interests {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chip--blush {
+    background: var(--blush);
+  }
+  .aud__chart-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .aud__highlight {
+    margin-bottom: 4px;
+  }
+  .aud__note {
+    margin-top: 4px;
+    padding-top: 14px;
+    border-top: 1px solid var(--light-blue);
+    line-height: 1.6;
+  }
+  .aud__period {
+    margin-top: -10px;
+  }
+  @media (max-width: 1023px) {
+    .aud__photo,
+    .aud__visitors,
+    .aud__ages,
+    .aud__countries {
+      grid-column: span 12;
+    }
+    .aud__photo {
+      max-width: 520px;
+      justify-self: center;
+      width: 100%;
+    }
+  }
+  @media (max-width: 479px) {
+    .card {
+      padding: 22px 20px;
+    }
+    .aud__row dt {
+      min-width: 0;
+      font-size: var(--fs-22);
+      width: 5.4em;
+    }
+  }
+</style>

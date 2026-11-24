@@ -1,0 +1,135 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import { photo, siteSet } from '../lib/assets';
+import ig from '../data/instagram-posts.json';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang).social;
+// 2026 activation story posters carried over from the current site (akt-*.webp)
+const stories = siteSet('akt-');
+---
+
+<Section id="social" bg="blue">
+  <SectionHead id="social" kicker={d.kicker} kickerClass="c-teal">
+    {d.h2.replace(' @graffitinagradele', '')} <span class="handle">@graffitinagradele</span>
+    <a slot="aside" class="btn btn--primary" href={ig.profile} rel="noopener" target="_blank">{d.follow}</a>
+  </SectionHead>
+
+  {
+    stories.length > 0 && (
+      <div class="social__block">
+        <h3 class="k c-magenta">{d.storiesTitle}</h3>
+        <ul class="rail social__stories" role="list" aria-label={d.storiesTitle} tabindex="0" data-reveal="stagger">
+          {stories.map((s) => (
+            <li>
+              <Photo src={s.src} alt={d.storyAlt} ratio="9 / 16" sizes="240px" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  {/* TODO: copy akt-*.webp from the current site into src/assets/site/ */}
+
+  <div class="social__block">
+    <h3 class="k c-magenta">{d.postsTitle}</h3>
+    <ul class="social__posts" role="list" data-reveal="stagger" data-ig-section>
+      {
+        ig.posts.map((p) => (
+          <li class="ig-card" data-ig-url={p.url || undefined}>
+            <a class="ig-card__link" href={p.url || ig.profile} rel="noopener" target="_blank">
+              <Photo src={photo(p.fallback)} alt={p.alt[lang]} ratio="1 / 1" sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" />
+              <span class="ig-card__cta">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" />
+                </svg>
+                {d.postFallback}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Section>
+
+<style>
+  .handle {
+    display: block;
+    text-transform: none;
+    font-stretch: 112%;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+  .social__block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .social__block + .social__block {
+    margin-top: 40px;
+  }
+  .social__stories {
+    --rail-w: clamp(180px, 22vw, 240px);
+    margin-block: 0;
+  }
+  .social__posts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+  }
+  .ig-card__link {
+    position: relative;
+    display: block;
+    border-radius: var(--r-media);
+    text-decoration: none;
+  }
+  .ig-card__cta {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px 8px 10px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    color: var(--ink);
+    font-size: var(--fs-13);
+    font-weight: 600;
+  }
+  .ig-card__cta svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+  .ig-card__link:hover .ig-card__cta {
+    background: var(--ink);
+    color: var(--white);
+  }
+  /* embedded posts keep the card shape */
+  .ig-card :global(.instagram-media) {
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: var(--r-card) !important;
+  }
+  @media (max-width: 899px) {
+    .social__posts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

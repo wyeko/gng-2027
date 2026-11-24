@@ -1,0 +1,36 @@
+---
+import { getImage } from 'astro:assets';
+import { background, type BgName } from '../../lib/assets';
+
+interface Props {
+  name: BgName;
+  eager?: boolean;
+}
+const { name, eager = false } = Astro.props;
+
+// Soft gradients: they survive heavy compression, so keep these light.
+const land = background(name, 'landscape');
+const port = background(name, 'portrait');
+const landSet = await Promise.all(
+  [960, 1920].map((w) => getImage({ src: land, width: w, format: 'webp', quality: 70 })),
+);
+const portSet = await Promise.all(
+  [600, 1000].map((w) => getImage({ src: port, width: w, format: 'webp', quality: 70 })),
+);
+const srcset = (set: typeof landSet) => set.map((img) => `${img.src} ${img.attributes.width}w`).join(', ');
+---
+
+<picture class="sec__bg" aria-hidden="true">
+  <source media="(max-width: 767px)" srcset={srcset(portSet)} sizes="100vw" />
+  <img
+    src={landSet[0].src}
+    srcset={srcset(landSet)}
+    sizes="100vw"
+    width={1920}
+    height={1080}
+    alt=""
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+    fetchpriority={eager ? 'high' : undefined}
+  />
+</picture>

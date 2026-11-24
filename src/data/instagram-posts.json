@@ -1,0 +1,12 @@
+{
+  "_comment": "TODO: paste the 6 Instagram post URLs (https://www.instagram.com/p/XXXX/). Until a URL is set, the card shows the fallback photo and links to the profile.",
+  "profile": "https://www.instagram.com/graffitinagradele/",
+  "posts": [
+    { "url": "", "fallback": "lights", "alt": { "en": "Crowd with phone lights at a night concert", "hr": "Publika sa svjetlima mobitela na noćnom koncertu" } },
+    { "url": "", "fallback": "flyjump", "alt": { "en": "Two people jumping into the sea", "hr": "Dvoje ljudi skače u more" } },
+    { "url": "", "fallback": "bay", "alt": { "en": "Bol bay with boats under the mountains", "hr": "Bolska uvala s brodicama ispod planina" } },
+    { "url": "", "fallback": "beachcrowd", "alt": { "en": "Festival crowd on the beach", "hr": "Festivalska publika na plaži" } },
+    { "url": "", "fallback": "battlewide", "alt": { "en": "Dance battle in front of a packed crowd", "hr": "Plesni battle pred punom publikom" } },
+    { "url": "", "fallback": "beachrace", "alt": { "en": "Beach race at the festival", "hr": "Utrka na plaži na festivalu" } }
+  ]
+}

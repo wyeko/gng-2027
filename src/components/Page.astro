@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import WhatHowWhen from './WhatHowWhen.astro';
+import Place from './Place.astro';
+import Numbers from './Numbers.astro';
+import Audience from './Audience.astro';
+import Results from './Results.astro';
+import Social from './Social.astro';
+import Media from './Media.astro';
+import Music from './Music.astro';
+import Activations from './Activations.astro';
+import Partners from './Partners.astro';
+import Options from './Options.astro';
+import Beyond from './Beyond.astro';
+import Aftermovie from './Aftermovie.astro';
+import Merch from './Merch.astro';
+import Contact from './Contact.astro';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<Base lang={lang}>
+  <Header lang={lang} />
+  <main id="main">
+    <Hero lang={lang} />
+    <WhatHowWhen lang={lang} />
+    <Place lang={lang} />
+    <Numbers lang={lang} />
+    <Audience lang={lang} />
+    <Results lang={lang} />
+    <Social lang={lang} />
+    <Media lang={lang} />
+    <Music lang={lang} />
+    <Activations lang={lang} />
+    <Partners lang={lang} />
+    <Options lang={lang} />
+    <Beyond lang={lang} />
+    <Aftermovie lang={lang} />
+    <Merch lang={lang} />
+    <Contact lang={lang} />
+  </main>
+</Base>

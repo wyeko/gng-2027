@@ -1,0 +1,65 @@
+---
+import Section from './ui/Section.astro';
+import Photo from './ui/Photo.astro';
+import Sparkle from './ui/Sparkle.astro';
+import { photo, siteSet } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).merch;
+// extra product shots carried over from the current site (merch-*.webp)
+const extra = siteSet('merch-');
+---
+
+<Section id="merch" bg="pink">
+  <div class="merch">
+    <div class="merch__copy stack" data-reveal="up">
+      <p class="k c-magenta">{d.kicker}</p>
+      <h2 id="merch-title" class="d h2">{d.h2}</h2>
+      <p class="lead">{d.lead}</p>
+    </div>
+    <div class="merch__media" data-reveal="stagger">
+      <div class="merch__hero">
+        <Photo src={photo('merch')} alt={d.alt} ratio="652 / 978" pos="50% 30%" sizes="(min-width: 1024px) 360px, 70vw" />
+        <Sparkle class="sparkle--a" size={36} style="right:-12px;top:-14px" />
+      </div>
+      {
+        extra.map((m) => (
+          <Photo src={m.src} alt={d.siteAlt} ratio="4 / 5" sizes="(min-width: 1024px) 240px, 45vw" />
+        ))
+      }
+    </div>
+  </div>
+  {/* TODO: copy merch-*.webp from the current site into src/assets/site/ */}
+</Section>
+
+<style>
+  .merch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 56px;
+    align-items: center;
+  }
+  .merch__copy {
+    flex: 1 1 340px;
+    gap: 18px;
+  }
+  .merch__media {
+    flex: 1.2 1 420px;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-end;
+  }
+  .merch__hero {
+    position: relative;
+    flex: 0 1 380px;
+    min-width: 240px;
+  }
+  .merch__media > :global(.media:not(:first-child)) {
+    flex: 0 1 220px;
+  }
+</style>

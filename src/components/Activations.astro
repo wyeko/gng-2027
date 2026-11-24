@@ -1,0 +1,126 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import { photo } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).activations;
+
+// bento: some tiles tall, some wide, so the gallery reads as evidence, not a template grid
+const shape: Record<string, { cls?: string; pos?: string }> = {
+  race: { cls: 'tall', pos: '50% 35%' },
+  jager_stage: { cls: 'wide' },
+  nivea_wall: {},
+  nivea_bar: { pos: '50% 40%' },
+  battle: { cls: 'tall', pos: '50% 40%' },
+  gshock_art: {},
+  pipi_bar: { cls: 'wide', pos: '50% 45%' },
+  redbull_dj: { pos: '50% 35%' },
+  a1_stage: { cls: 'wide' },
+  kids: { cls: 'wide', pos: '30% 50%' },
+};
+---
+
+<Section id="activations" bg="baby">
+  <SectionHead id="activations" kicker={d.kicker}>{d.h2}</SectionHead>
+
+  <ul class="principles" role="list" data-reveal="stagger">
+    {
+      d.principles.map((p, i) => (
+        <li class="card principle">
+          <span class="principle__n d" aria-hidden="true">0{i + 1}</span>
+          <h3 class="d t-22 c-magenta">{p.title}</h3>
+          <p>{p.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <ul class="gallery" role="list" data-reveal="stagger">
+    {
+      d.gallery.map((g) => {
+        const s = shape[g.photo] ?? {};
+        return (
+          <li class:list={['gallery__item', s.cls && `gallery__item--${s.cls}`]}>
+            <Photo src={photo(g.photo)} alt={g.alt} pos={s.pos} sizes="(min-width: 1024px) 600px, (min-width: 640px) 50vw, 100vw">
+              <p class="tag tag--slap k">
+                <span class="tag__brand">{g.brand}</span> · {g.what}
+              </p>
+            </Photo>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+
+<style>
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0 0 32px;
+    padding: 0;
+  }
+  .principle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px 28px 28px;
+  }
+  .principle__n {
+    font-size: var(--fs-13);
+    color: var(--teal-text);
+    letter-spacing: 0.08em;
+  }
+  .gallery {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 220px;
+    grid-auto-flow: dense;
+    gap: 14px;
+  }
+  .gallery__item > :global(.media) {
+    height: 100%;
+  }
+  .gallery__item--tall {
+    grid-row: span 2;
+  }
+  .gallery__item--wide {
+    grid-column: span 2;
+  }
+  .tag {
+    margin: 0;
+  }
+  .tag__brand {
+    color: var(--magenta);
+  }
+  @media (max-width: 899px) {
+    .principles {
+      grid-template-columns: 1fr;
+    }
+    .gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 180px;
+    }
+  }
+  @media (max-width: 479px) {
+    .gallery {
+      grid-auto-rows: 150px;
+      gap: 10px;
+    }
+    .gallery .tag {
+      left: 8px;
+      bottom: 8px;
+      right: 8px;
+      padding: 7px 10px;
+      letter-spacing: 0.06em;
+    }
+  }
+</style>

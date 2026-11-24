@@ -1,0 +1,112 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import Sparkle from './ui/Sparkle.astro';
+import { photo } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).numbers;
+---
+
+<Section id="numbers" bg="mesh2">
+  <div class="numbers">
+    <div class="numbers__main">
+      <SectionHead id="numbers" kicker={d.kicker} kickerClass="c-teal">{d.h2}</SectionHead>
+      <ul class="numbers__grid" role="list" data-reveal="stagger">
+        {
+          d.stats.map((s) => (
+            <li>
+              <p class="d t-40 c-teal rise-num">
+                <span>{s.value}</span>
+              </p>
+              <p>{s.label}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="numbers__plus" data-reveal="up">
+        <p class="k c-magenta">{d.plusLabel}</p>
+        <ul class="chips">
+          {d.plus.map((item) => <li class="chip">{item}</li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="numbers__photos" data-reveal="stagger">
+      <div class="cloud-wrap">
+        <Photo src={photo('jumpers')} alt={d.alts.jumpers} cloud sizes="(min-width: 1024px) 520px, 100vw" />
+        <Sparkle class="sparkle--a" size={40} style="right:5%;top:0" />
+        <Sparkle size={20} style="right:14%;top:11%" />
+      </div>
+      <div class="numbers__pair">
+        <Photo src={photo('lights')} alt={d.alts.lights} ratio="4 / 3" sizes="(min-width: 1024px) 260px, 50vw" />
+        <Photo src={photo('battle_dance')} alt={d.alts.battle_dance} ratio="4 / 3" pos="50% 30%" sizes="(min-width: 1024px) 260px, 50vw" />
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    align-items: center;
+  }
+  .numbers__main {
+    flex: 1.2 1 520px;
+    min-width: 0;
+  }
+  .numbers__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+  }
+  .numbers__grid > li {
+    padding: 18px 20px 22px;
+    border-top: 1.5px solid var(--rule);
+    border-left: 1.5px solid var(--rule);
+  }
+  .numbers__grid > li:nth-child(3n + 1) {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .numbers__grid > li p:last-child {
+    margin-top: 6px;
+  }
+  .numbers__plus {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .numbers__photos {
+    flex: 1 1 400px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .numbers__pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 639px) {
+    .numbers__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .numbers__grid > li:nth-child(3n + 1) {
+      border-left: 1.5px solid var(--rule);
+      padding-left: 20px;
+    }
+    .numbers__grid > li:nth-child(odd) {
+      border-left: 0;
+      padding-left: 0;
+    }
+  }
+</style>

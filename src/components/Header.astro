@@ -1,0 +1,125 @@
+---
+import logoTeal from '../assets/brand/logo-teal.svg?url';
+import { t, langs, pathFor, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+---
+
+<div class="header-sentinel" aria-hidden="true" data-header-sentinel></div>
+<header class="site-header" data-header>
+  <div class="wrap site-header__inner">
+    <a class="site-header__logo" href={pathFor(lang)}>
+      <img src={logoTeal} width="73" height="56" alt={d.nav.logoAlt} />
+    </a>
+    <div class="site-header__nav">
+      <p class="k c-teal site-header__label">{d.nav.label}</p>
+      <nav class="lang" aria-label={d.nav.langGroup}>
+        {
+          langs.map((l) => (
+            <a
+              href={pathFor(l)}
+              hreflang={l}
+              lang={l}
+              aria-current={l === lang ? 'true' : undefined}
+              data-lang-link
+            >
+              {l.toUpperCase()}
+            </a>
+          ))
+        }
+      </nav>
+      <a class="btn btn--primary btn--sm" href="#contact">{d.nav.cta}</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header-sentinel {
+    position: absolute;
+    top: 0;
+    height: 24px;
+    width: 1px;
+  }
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 200ms var(--out),
+      border-color 200ms var(--out);
+  }
+  .site-header.is-stuck {
+    background: rgb(255 246 214 / 0.9);
+    border-bottom-color: var(--rule);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    backdrop-filter: blur(10px) saturate(1.2);
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 80px;
+    padding-block: 12px;
+  }
+  .site-header__logo {
+    display: block;
+    flex: none;
+    border-radius: 8px;
+  }
+  .site-header__logo img {
+    height: 56px;
+    width: auto;
+  }
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lang {
+    display: flex;
+    border: 1.5px solid var(--teal-text);
+    border-radius: var(--r-pill);
+    padding: 3px;
+  }
+  .lang a {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 38px;
+    padding: 0 10px;
+    border-radius: var(--r-pill);
+    color: var(--teal-text);
+    font-weight: 700;
+    font-size: var(--fs-13);
+    text-decoration: none;
+  }
+  .lang a:hover {
+    background: var(--baby-blue);
+    color: var(--ink);
+  }
+  .lang a[aria-current='true'] {
+    background: var(--teal-text);
+    color: var(--white);
+  }
+  @media (max-width: 640px) {
+    .site-header__label {
+      display: none;
+    }
+    .site-header__inner {
+      min-height: 68px;
+      padding-block: 10px;
+    }
+    .site-header__logo img {
+      height: 46px;
+    }
+    .site-header__nav {
+      gap: 8px;
+    }
+  }
+</style>

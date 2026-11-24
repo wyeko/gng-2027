@@ -1,0 +1,227 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import { photo } from '../lib/assets';
+import { site } from '../config';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang).options;
+const cats = d.picker.cats;
+// Real radios: works without JS, arrow keys move between categories.
+// ?kat=<id> preselects a category (links like /?kat=moda keep working).
+const showCss = cats
+  .map((c) => `.picker:has(#kat-${c.id}:checked) [data-idea="${c.id}"]`)
+  .join(',\n');
+const mail = `mailto:${site.contactEmail}?subject=${encodeURIComponent(t(lang).contact.mailSubject)}`;
+---
+
+<Section id="partnership" bg="mesh">
+  <SectionHead id="partnership" kicker={d.kicker} kickerClass="c-amber" lead={d.lead}>{d.h2}</SectionHead>
+
+  <form class="picker card card--solid" data-picker data-reveal="up" onsubmit="return false">
+    <fieldset>
+      <legend class="k c-teal">{d.picker.legend}</legend>
+      <div class="picker__pills">
+        {
+          cats.map((c, i) => (
+            <label class="pill">
+              <input type="radio" name="kat" id={`kat-${c.id}`} value={c.id} checked={i === 0} />
+              <span>{c.label}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+    <div class="picker__ideas" aria-live="polite">
+      {
+        cats.map((c) => (
+          <p class="d picker__idea" data-idea={c.id}>
+            {c.idea}
+          </p>
+        ))
+      }
+    </div>
+  </form>
+  <style is:inline set:html={`${showCss} { visibility: visible; opacity: 1; transform: none; transition: visibility 0s linear 120ms; animation: idea-in 260ms var(--out) 120ms both; }`}></style>
+
+  <div class="incl" data-reveal="up">
+    <div class="card card--solid incl__panel">
+      <p class="k c-teal">{d.includedLabel}</p>
+      <dl class="incl__list">
+        {
+          d.included.map((item) => (
+            <div class="incl__row">
+              <dt class="d t-22">{item.title}</dt>
+              <dd>{item.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="incl__always">{d.exclusive}</p>
+    </div>
+    <div class="incl__cta grain on-pink">
+      <h3 class="d t-32">{d.cta.title}</h3>
+      <p>{d.cta.text}</p>
+      <a class="btn btn--white" href={mail}>{d.cta.button}</a>
+      <Photo class="incl__cta-photo" src={photo('sprayhand')} alt="" pos="70% 50%" sizes="(min-width: 900px) 400px, 100vw" />
+    </div>
+  </div>
+</Section>
+
+<style>
+  .picker {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  legend {
+    padding: 0;
+    margin-bottom: 16px;
+  }
+  .picker__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill {
+    position: relative;
+    display: inline-flex;
+  }
+  .pill input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  .pill span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: var(--r-pill);
+    border: 1.5px solid var(--teal-text);
+    background: var(--white);
+    color: var(--teal-text);
+    font-weight: 700;
+    font-size: var(--fs-13);
+    transition:
+      background-color 120ms var(--out),
+      color 120ms var(--out);
+  }
+  .pill:hover span {
+    background: var(--baby-blue);
+  }
+  .pill input:checked + span {
+    background: var(--teal-text);
+    color: var(--white);
+  }
+  .pill input:focus-visible + span {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .picker__ideas {
+    display: grid;
+  }
+  .picker__idea {
+    grid-area: 1 / 1;
+    font-size: var(--fs-32);
+    line-height: 1.15;
+    max-width: 26em;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity 120ms var(--out),
+      transform 120ms var(--out),
+      visibility 0s linear 120ms;
+  }
+  .incl {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 16px;
+  }
+  .incl__panel {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .incl__list {
+    margin: 0;
+  }
+  .incl__row {
+    display: grid;
+    grid-template-columns: minmax(0, 15em) 1fr;
+    gap: 6px 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--light-blue);
+    align-items: baseline;
+  }
+  .incl__row dd {
+    margin: 0;
+  }
+  .incl__always {
+    padding-top: 12px;
+    font-weight: 600;
+    color: var(--teal-text);
+  }
+  .incl__cta {
+    background: var(--pink-cta);
+    color: var(--white);
+    border-radius: var(--r-card);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .incl__cta {
+    overflow: hidden;
+  }
+  .incl__cta p {
+    font-size: var(--fs-18);
+  }
+  /* photo bleeds to the card edge, so it shares the card's corners */
+  .incl__cta :global(.incl__cta-photo) {
+    flex: 1 1 160px;
+    align-self: stretch;
+    margin: 10px -28px -28px;
+    min-height: 160px;
+    border-radius: 0;
+  }
+  @media (max-width: 899px) {
+    .incl {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 639px) {
+    .picker,
+    .incl__panel,
+    .incl__cta {
+      padding: 22px 20px;
+    }
+    .incl__cta :global(.incl__cta-photo) {
+      margin: 10px -20px -22px;
+    }
+    .picker__idea {
+      font-size: var(--fs-22);
+    }
+    .incl__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

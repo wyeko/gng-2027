@@ -1,0 +1,228 @@
+---
+import { getImage } from 'astro:assets';
+import Bg from './ui/Bg.astro';
+import Sparkle from './ui/Sparkle.astro';
+import poster from '../assets/video/hero-poster.jpg';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang).hero;
+const posterImg = await getImage({ src: poster, width: 600, format: 'webp', quality: 78 });
+---
+
+<section id="top" class="hero sec--mesh" aria-labelledby="hero-title" data-hero>
+  <Bg name="mesh" eager />
+  <div class="wrap hero__main">
+    <div class="hero__copy">
+      <p class="k c-teal hero__kicker">{d.kicker}</p>
+      <h1 id="hero-title" class="d h1 hero__h1">
+        <span class="hero__h1-a">{d.h1a}</span>
+        <span class="hero__h1-b accent">{d.h1b}</span>
+      </h1>
+      <p class="lead hero__lead">{d.lead}</p>
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="#partnership">{d.ctaPrimary}</a>
+        <a class="btn btn--outline" href="#aftermovie">{d.ctaSecondary}</a>
+      </div>
+      <!-- TODO: source needed for "TOP 10 global street art events" before launch -->
+      <ul class="hero__awards" aria-label={d.awardsLabel}>
+        {
+          d.awards.map((award) => (
+            <li class="award">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" />
+              </svg>
+              {award}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="hero__media">
+      <div class="media cloud hero__video">
+        <video
+          data-hero-video
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster={posterImg.src}
+          width="600"
+          height="750"
+          aria-label={d.videoLabel}
+        >
+          <source src="/video/hero-muted.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <p class="hero__sticker">
+        <span class="d" aria-hidden="true">{d.sticker.big}<span class="hero__sticker-year">{d.sticker.small}</span></span>
+        <span class="sr-only">{d.sticker.full}</span>
+      </p>
+      <Sparkle class="sparkle--a" size={44} style="right:4%;top:0" />
+      <Sparkle class="sparkle--b" size={22} style="right:12%;top:10%" />
+      <Sparkle class="sparkle--c" size={18} style="left:9%;top:12%" />
+    </div>
+  </div>
+
+  <div class="wrap">
+    <ul class="hero__stats ruled" aria-label={d.statsLabel} data-reveal="stagger">
+      {
+        d.stats.map((s) => (
+          <li>
+            <p class="d t-40 c-teal rise-num">
+              <span>{s.value}</span>
+            </p>
+            <p class="hero__stat-label">{s.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    margin-top: -80px;
+    padding: calc(80px + 32px) 0 56px;
+    overflow: clip;
+  }
+  .hero__main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+  .hero__copy {
+    flex: 1.3 1 560px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .hero__kicker {
+    padding: 8px 14px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+  }
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hero__awards {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .award {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 6px 14px 6px 10px;
+    border-radius: var(--r-pill);
+    background: var(--card);
+    font-size: var(--fs-13);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .award svg {
+    width: 14px;
+    height: 14px;
+    flex: none;
+    fill: var(--magenta);
+  }
+
+  .hero__media {
+    flex: 1 1 380px;
+    min-width: 0;
+    position: relative;
+  }
+  .hero__video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero__sticker {
+    position: absolute;
+    left: -6px;
+    bottom: 4%;
+    z-index: 2;
+    width: 124px;
+    height: 124px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    transform: rotate(-10deg);
+    box-shadow: 0 10px 24px -12px rgb(14 47 79 / 0.45);
+  }
+  .hero__sticker .d {
+    display: block;
+    font-size: var(--fs-22);
+  }
+  .hero__sticker-year {
+    display: block;
+    margin-top: 4px;
+    font-size: var(--fs-13);
+  }
+
+  .hero__stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .hero__stats > li:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .hero__stat-label {
+    margin-top: 8px;
+    max-width: 16em;
+  }
+
+  @media (max-width: 900px) {
+    .hero__stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 24px;
+    }
+    .hero__stats > li:nth-child(odd) {
+      border-left: 0;
+      padding-left: 0;
+    }
+  }
+  @media (max-width: 640px) {
+    .hero__stats :global(.t-40) {
+      font-size: var(--fs-32);
+    }
+    .hero {
+      margin-top: -68px;
+      padding-top: calc(68px + 16px);
+    }
+    .hero__main {
+      gap: 32px;
+    }
+    .hero__sticker {
+      width: 104px;
+      height: 104px;
+      left: 0;
+    }
+    .hero__sticker .d {
+      font-size: var(--fs-16);
+    }
+  }
+</style>

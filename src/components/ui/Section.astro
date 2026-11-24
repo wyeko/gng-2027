@@ -1,0 +1,20 @@
+---
+import Bg from './Bg.astro';
+import type { BgName } from '../../lib/assets';
+
+interface Props {
+  id: string;
+  bg: BgName | 'contact';
+  class?: string;
+  eager?: boolean;
+  wide?: boolean;
+}
+const { id, bg, class: cls, eager = false, wide = false } = Astro.props;
+---
+
+<section id={id} class:list={['sec', `sec--${bg}`, cls]} aria-labelledby={`${id}-title`}>
+  {bg !== 'contact' && <Bg name={bg} eager={eager} />}
+  <div class:list={['wrap', { 'wrap--wide': wide }]}>
+    <slot />
+  </div>
+</section>

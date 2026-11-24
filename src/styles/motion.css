@@ -1,0 +1,172 @@
+/* ==========================================================================
+   Motion. Three easings (--out, --inout, --pop), two signature moments:
+   A) spray wipe on the pink headline phrases, B) sticker slap.
+   Everything hidden-before-reveal is gated behind html.js, so no-JS
+   visitors always see the content.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ---------- hero load sequence (pure CSS, ~1.3 s) ---------- */
+  .hero__kicker { animation: rise 400ms var(--out) both; }
+  .hero__h1-a {
+    animation: block-rise 600ms var(--out) 80ms both;
+  }
+  .hero__h1-b { animation: spray 800ms var(--inout) 450ms both; }
+  .hero__lead { animation: rise-12 500ms var(--out) 500ms both; }
+  .hero__ctas { animation: rise-12 500ms var(--out) 600ms both; }
+  .hero__awards { animation: rise-12 500ms var(--out) 700ms both; }
+  .hero__media .media > * { animation: settle 1400ms var(--out) both; }
+  .hero__sticker { animation: slap 420ms var(--pop) 700ms both; }
+  .hero__media .sparkle--a { animation: sparkle-pop 500ms var(--pop) 900ms both, twinkle 3.6s var(--inout) 1.6s infinite; }
+  .hero__media .sparkle--b { animation: sparkle-pop 500ms var(--pop) 1050ms both; }
+  .hero__media .sparkle--c { animation: sparkle-pop 500ms var(--pop) 1180ms both; }
+  .hero:not(.is-visible) .sparkle--a { animation-play-state: running, paused; }
+
+  /* ---------- scroll reveals ---------- */
+  html.js [data-reveal='up'],
+  html.js [data-reveal='stagger'] > * {
+    opacity: 0;
+    transform: translateY(var(--travel));
+    transition:
+      opacity 600ms var(--out) var(--d, 0ms),
+      transform 600ms var(--out) var(--d, 0ms);
+  }
+  html.js [data-reveal='up'].is-in,
+  html.js [data-reveal='stagger'].is-in > * {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal='stagger'] > :nth-child(2) { --d: calc(var(--step) * 1); }
+  [data-reveal='stagger'] > :nth-child(3) { --d: calc(var(--step) * 2); }
+  [data-reveal='stagger'] > :nth-child(4) { --d: calc(var(--step) * 3); }
+  [data-reveal='stagger'] > :nth-child(n + 5) { --d: calc(var(--step) * 4); }
+
+  /* photos settle inside their frame */
+  html.js [data-reveal] .media:not(.cloud) img {
+    transform: scale(1.06);
+    transition: transform 800ms var(--out) var(--d, 0ms);
+  }
+  html.js [data-reveal].is-in .media:not(.cloud) img { transform: none; }
+  html.js [data-reveal] .cloud img,
+  html.js [data-reveal] .cloud video {
+    transform: scale(1.08);
+    transition: transform 1200ms var(--out) var(--d, 0ms);
+  }
+  html.js [data-reveal].is-in .cloud img,
+  html.js [data-reveal].is-in .cloud video { transform: none; }
+
+  /* stat numbers: masked rise, numbers stay readable (no count-up) */
+  /* clip only vertically: the number rises from below its baseline, never cropped sideways */
+  html.js [data-reveal] .rise-num { display: block; clip-path: inset(-0.3em -100vw 0 -100vw); }
+  html.js [data-reveal] .rise-num > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 500ms var(--out) var(--d, 0ms);
+  }
+  html.js [data-reveal].is-in .rise-num > span { transform: none; }
+
+  /* B) sticker slap for brand tags, 150 ms after their photo lands */
+  html.js [data-reveal] .tag--slap { opacity: 0; }
+  html.js [data-reveal].is-in .tag--slap {
+    animation: tag-slap 300ms var(--pop) calc(var(--d, 0ms) + 450ms) both;
+  }
+
+  /* A) spray wipe on scroll for the second pink phrase */
+  html.js .spray-on-scroll:not(.is-in) .spray { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+  html.js .spray-on-scroll.is-in .spray { animation: spray 800ms var(--inout) 200ms both; }
+
+  /* bars grow from zero */
+  html.js [data-reveal] .bar__fill {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 700ms var(--out) calc(var(--d, 0ms) + var(--bar-d, 0ms));
+  }
+  html.js [data-reveal].is-in .bar__fill { transform: none; }
+
+  /* aftermovie frame opens as it enters */
+  html.js [data-reveal='frame'] {
+    clip-path: inset(6% round var(--r-big));
+    transition: clip-path 900ms var(--out);
+  }
+  html.js [data-reveal='frame'].is-in { clip-path: inset(0 round var(--r-big)); }
+}
+
+/* both headline halves are blocks: clip-path and transforms need a box */
+.hero__h1-a { display: block; }
+
+/* the spray mask itself (feathered edge sweeping left → right) */
+.spray,
+.hero__h1-b {
+  display: block;
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .spray,
+  .hero__h1-b {
+    -webkit-mask-image: linear-gradient(90deg, #000 45%, transparent 55%);
+    mask-image: linear-gradient(90deg, #000 45%, transparent 55%);
+    -webkit-mask-size: 250% 100%;
+    mask-size: 250% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+/* reduced motion: 200 ms opacity only, no transforms, masks or loops */
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal='up'],
+  html.js [data-reveal='stagger'] > * {
+    opacity: 0;
+    transition: opacity 200ms linear;
+  }
+  html.js [data-reveal='up'].is-in,
+  html.js [data-reveal='stagger'].is-in > * { opacity: 1; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+@keyframes rise-12 { from { opacity: 0; transform: translateY(12px); } }
+@keyframes block-rise {
+  from { clip-path: inset(-0.3em -0.3em 100% -0.3em); transform: translateY(0.2em); }
+  to { clip-path: inset(-0.3em -0.3em -0.3em -0.3em); transform: none; }
+}
+@keyframes spray {
+  from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+  to { -webkit-mask-position: 0 0; mask-position: 0 0; }
+}
+@keyframes settle { from { transform: scale(1.08); } }
+@keyframes slap {
+  0% { opacity: 0; transform: scale(1.5) rotate(-28deg); }
+  28% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) rotate(-10deg); }
+}
+@keyframes tag-slap {
+  0% { opacity: 0; transform: scale(1.15) rotate(-3deg); }
+  40% { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes sparkle-pop {
+  from { opacity: 0; transform: scale(0) rotate(45deg); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes twinkle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.85); }
+}
+
+/* picker: new idea rises in after the old one has left (120 ms) */
+@keyframes idea-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .picker__idea { transition: none !important; transform: none !important; }
+}

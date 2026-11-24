@@ -1,0 +1,60 @@
+---
+import Section from './ui/Section.astro';
+import SectionHead from './ui/SectionHead.astro';
+import Photo from './ui/Photo.astro';
+import { photo, siteSet } from '../lib/assets';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).music;
+// artist photos carried over from the current site (izv-*.webp)
+const artists = siteSet('izv-');
+---
+
+<Section id="music" bg="pink">
+  <SectionHead id="music" kicker={d.kicker} lead={d.lead} split>{d.h2}</SectionHead>
+  {
+    artists.length > 0 ? (
+      <ul class="music__artists" role="list" data-reveal="stagger">
+        {artists.map((a) => (
+          <li>
+            <Photo src={a.src} alt={a.name.replace(/^izv-/, '').replace(/[-_]+/g, ' ')} ratio="4 / 5" sizes="(min-width: 1024px) 240px, 45vw" />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="music__mood" data-reveal="stagger">
+        <Photo src={photo('party')} alt={d.alts.party} ratio="16 / 10" sizes="(min-width: 1024px) 700px, 100vw" />
+        <Photo src={photo('crowd_night')} alt={d.alts.crowd_night} ratio="16 / 10" sizes="(min-width: 1024px) 520px, 100vw" />
+      </div>
+    )
+  }
+  {/* TODO: copy izv-*.webp (named izv-<artist>.webp) from the current site into src/assets/site/ */}
+  <p class="music__disclaimer t-13" data-reveal="up">{d.disclaimer}</p>
+</Section>
+
+<style>
+  .music__artists {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .music__mood {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 14px;
+  }
+  .music__disclaimer {
+    margin-top: 20px;
+    color: #6b3a55;
+  }
+  @media (max-width: 639px) {
+    .music__mood {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
