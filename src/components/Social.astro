@@ -116,9 +116,11 @@ const stories = siteSet('akt-');
     stroke: currentColor;
     stroke-width: 1.8;
   }
-  .ig-card__link:hover .ig-card__cta {
-    background: var(--ink);
-    color: var(--white);
+  @media (hover: hover) and (pointer: fine) {
+    .ig-card__link:hover .ig-card__cta {
+      background: var(--ink);
+      color: var(--white);
+    }
   }
   /* embedded posts keep the card shape */
   .ig-card :global(.instagram-media) {

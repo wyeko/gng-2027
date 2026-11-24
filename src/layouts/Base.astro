@@ -48,6 +48,11 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
     <!-- reveal states only apply when JS is running -->
     <script is:inline>
       document.documentElement.classList.add('js');
+      // play the hero intro once per session (switching EN/HR doesn't replay it)
+      try {
+        if (sessionStorage.getItem('gng-intro')) document.documentElement.classList.add('intro-seen');
+        else sessionStorage.setItem('gng-intro', '1');
+      } catch (e) {}
       // if the main script never runs, show everything instead of leaving it hidden
       setTimeout(function () {
         if (!window.__gngReady) document.documentElement.classList.remove('js');

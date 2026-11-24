@@ -8,7 +8,7 @@ export const en = {
   meta: {
     title: 'GNG 2027 Partnership · Graffiti na Gradele, Bol',
     description:
-      'Partner with Graffiti na Gradele 2027, an international mural, graffiti and music festival in Bol on Brač, 21–25 July 2027. Brand activations that are part of the programme, not an ad next to it.',
+      'Partner with Graffiti na Gradele 2027, an international mural, graffiti and music festival in Bol on Brač, 21–25 July 2027.',
   },
   nav: {
     skip: 'Skip to content',
@@ -85,7 +85,7 @@ export const en = {
   },
   audience: {
     kicker: 'Audience',
-    h2: 'The audience brands look for.',
+    h2: 'Who comes to GNG, and who follows it.',
     photoAlt: 'Two festival visitors laughing on the beach',
     visitors: {
       title: 'Festival visitors',
@@ -126,9 +126,9 @@ export const en = {
     },
   },
   results: {
-    kicker: 'Results, July 2026',
-    h2: 'Organic reach, no paid promotion.',
-    meta: 'Instagram, 5 July – 3 August 2026. Organic, run by the GNG in-house team.',
+    kicker: 'Results',
+    h2: 'July 2026 on Instagram.',
+    meta: '5 July – 3 August 2026. Organic, with no paid promotion, run by the GNG in-house team.',
     reference: 'Total views 1.59M, +379% vs June.',
     stats: [
       { value: '109.6K', label: 'accounts reached' },
@@ -237,7 +237,7 @@ export const en = {
       { title: 'Year-round', text: 'Concerts, murals, activations and workshops across Croatia, beyond the festival.' },
     ],
     exclusive: 'Always: category exclusivity.',
-    cta: { title: 'Have an idea?', text: 'Bring it to Bol. We shape it into a slot in the programme with you.', button: 'Write to us' },
+    cta: { title: 'Your activation idea', text: 'Send it over and we will fit it into the programme with you.', button: 'Write to us' },
   },
   beyond: {
     kicker: 'Beyond Bol',
@@ -262,8 +262,8 @@ export const en = {
   },
   aftermovie: {
     kicker: 'Aftermovie',
-    h2: 'See it for yourself.',
-    lead: 'Five days in two minutes: the beach, the walls, the battles and 585 Club.',
+    h2: 'Five days in two minutes.',
+    lead: 'The beach, the walls, the battles and 585 Club.',
     toggleLabel: 'Choose aftermovie',
     latest: 'Latest',
     y2025: 'GNG 2025',

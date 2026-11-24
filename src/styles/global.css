@@ -115,7 +115,9 @@ p, h1, h2, h3, h4, ul, ol, figure, blockquote { margin: 0; }
 ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 button, input, select { font: inherit; color: inherit; }
 a { color: var(--teal-text); text-underline-offset: 0.18em; }
-a:hover { color: var(--ink); }
+@media (hover: hover) and (pointer: fine) {
+  a:hover { color: var(--ink); }
+}
 strong, b { font-weight: 600; }
 
 :focus-visible {
@@ -246,15 +248,17 @@ p, li, dd { text-wrap: pretty; }
 }
 .btn:active { transform: scale(0.97); }
 .btn--sm { min-height: 44px; padding: 0 20px; }
-/* hovers are instant on purpose (frequent interaction) */
 .btn--primary { background: var(--pink-cta); color: var(--white); }
-.btn--primary:hover { background: var(--magenta); color: var(--white); }
 .btn--outline { border-color: var(--teal-text); color: var(--teal-text); background: transparent; }
-.btn--outline:hover { background: var(--teal-text); color: var(--white); }
 .btn--white { background: var(--white); color: var(--magenta); }
-.btn--white:hover { background: var(--cream); color: var(--magenta); }
 .btn--ghost-white { border-color: var(--white); color: var(--white); }
-.btn--ghost-white:hover { background: var(--white); color: var(--magenta); }
+/* hover only where there is a real pointer; instant on purpose (frequent interaction) */
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover { background: var(--magenta); color: var(--white); }
+  .btn--outline:hover { background: var(--teal-text); color: var(--white); }
+  .btn--white:hover { background: var(--cream); color: var(--magenta); }
+  .btn--ghost-white:hover { background: var(--white); color: var(--magenta); }
+}
 
 .chip {
   display: inline-flex;

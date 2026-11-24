@@ -47,7 +47,7 @@ const mail = `mailto:${site.contactEmail}?subject=${encodeURIComponent(t(lang).c
       }
     </div>
   </form>
-  <style is:inline set:html={`${showCss} { visibility: visible; opacity: 1; transform: none; transition: visibility 0s linear 120ms; animation: idea-in 260ms var(--out) 120ms both; }`}></style>
+  <style is:inline set:html={`${showCss} { visibility: visible; opacity: 1; transform: none; transition: visibility 0s linear 120ms; } @media (prefers-reduced-motion: no-preference) { ${showCss} { animation: idea-in 260ms var(--out) 120ms both; } }`}></style>
 
   <div class="incl" data-reveal="up">
     <div class="card card--solid incl__panel">
@@ -118,11 +118,13 @@ const mail = `mailto:${site.contactEmail}?subject=${encodeURIComponent(t(lang).c
     font-weight: 700;
     font-size: var(--fs-13);
     transition:
-      background-color 120ms var(--out),
-      color 120ms var(--out);
+      background-color 120ms ease,
+      color 120ms ease;
   }
-  .pill:hover span {
-    background: var(--baby-blue);
+  @media (hover: hover) and (pointer: fine) {
+    .pill:hover input:not(:checked) + span {
+      background: var(--baby-blue);
+    }
   }
   .pill input:checked + span {
     background: var(--teal-text);

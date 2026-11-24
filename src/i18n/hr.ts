@@ -10,7 +10,7 @@ export const hr: Dict = {
   meta: {
     title: 'GNG 2027 partnerstvo · Graffiti na Gradele, Bol',
     description:
-      'Postanite partner festivala Graffiti na Gradele 2027., međunarodnog festivala murala, grafita i glazbe u Bolu na Braču, 21.–25. srpnja 2027. Aktivacije brendova koje su dio programa, a ne reklama pored njega.',
+      'Postanite partner festivala Graffiti na Gradele 2027., međunarodnog festivala murala, grafita i glazbe u Bolu na Braču, 21.–25. srpnja 2027.',
   },
   nav: {
     skip: 'Preskoči na sadržaj',
@@ -87,7 +87,7 @@ export const hr: Dict = {
   },
   audience: {
     kicker: 'Publika',
-    h2: 'Publika koju brendovi traže.',
+    h2: 'Tko dolazi na GNG, a tko ga prati.',
     photoAlt: 'Dvije posjetiteljice festivala smiju se na plaži',
     visitors: {
       title: 'Posjetitelji festivala',
@@ -128,9 +128,9 @@ export const hr: Dict = {
     },
   },
   results: {
-    kicker: 'Rezultati, srpanj 2026.',
-    h2: 'Organski doseg, bez plaćene promocije.',
-    meta: 'Instagram, 5. srpnja – 3. kolovoza 2026. Organski; profil vodi GNG-ov tim.',
+    kicker: 'Rezultati',
+    h2: 'Srpanj 2026. na Instagramu.',
+    meta: '5. srpnja – 3. kolovoza 2026. Organski, bez plaćene promocije; profil vodi GNG-ov tim.',
     reference: 'Ukupno 1,59M pregleda, +379% u odnosu na lipanj.',
     stats: [
       { value: '109,6K', label: 'dosegnutih računa' },
@@ -239,7 +239,7 @@ export const hr: Dict = {
       { title: 'Cijele godine', text: 'Koncerti, murali, aktivacije i radionice diljem Hrvatske, i izvan festivalskih dana.' },
     ],
     exclusive: 'Uvijek: ekskluzivnost kategorije.',
-    cta: { title: 'Imate ideju?', text: 'Donesite je u Bol. Zajedno ćemo je pretvoriti u točku programa.', button: 'Pišite nam' },
+    cta: { title: 'Vaša ideja za aktivaciju', text: 'Pošaljite nam je i zajedno ćemo je uklopiti u program.', button: 'Pišite nam' },
   },
   beyond: {
     kicker: 'Izvan Bola',
@@ -264,8 +264,8 @@ export const hr: Dict = {
   },
   aftermovie: {
     kicker: 'Aftermovie',
-    h2: 'Uvjerite se sami.',
-    lead: 'Pet dana u dvije minute: plaža, zidovi, battleovi i 585 Club.',
+    h2: 'Pet dana u dvije minute.',
+    lead: 'Plaža, zidovi, battleovi i 585 Club.',
     toggleLabel: 'Odaberite aftermovie',
     latest: 'Najnoviji',
     y2025: 'GNG 2025',

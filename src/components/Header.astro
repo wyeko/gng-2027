@@ -50,8 +50,8 @@ const d = t(lang);
     z-index: 50;
     border-bottom: 1px solid transparent;
     transition:
-      background-color 200ms var(--out),
-      border-color 200ms var(--out);
+      background-color 200ms ease,
+      border-color 200ms ease;
   }
   .site-header.is-stuck {
     background: rgb(255 246 214 / 0.9);
@@ -91,7 +91,7 @@ const d = t(lang);
     display: grid;
     place-items: center;
     min-width: 44px;
-    min-height: 38px;
+    min-height: 44px;
     padding: 0 10px;
     border-radius: var(--r-pill);
     color: var(--teal-text);
@@ -99,9 +99,11 @@ const d = t(lang);
     font-size: var(--fs-13);
     text-decoration: none;
   }
-  .lang a:hover {
-    background: var(--baby-blue);
-    color: var(--ink);
+  @media (hover: hover) and (pointer: fine) {
+    .lang a:not([aria-current='true']):hover {
+      background: var(--baby-blue);
+      color: var(--ink);
+    }
   }
   .lang a[aria-current='true'] {
     background: var(--teal-text);

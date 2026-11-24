@@ -66,7 +66,7 @@ const ready = films.some((f) => f.id);
     background: rgb(255 255 255 / 0.6);
   }
   .am__opt {
-    min-height: 40px;
+    min-height: 44px;
     padding: 0 18px;
     border: 0;
     border-radius: var(--r-pill);
@@ -126,7 +126,7 @@ const ready = films.some((f) => f.id);
   .am__play:disabled {
     cursor: default;
   }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .am__frame:hover :global(.am__poster img) {
       transform: scale(1.03);
     }

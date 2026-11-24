@@ -6,21 +6,22 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: no-preference) {
-  /* ---------- hero load sequence (pure CSS, ~1.3 s) ---------- */
-  .hero__kicker { animation: rise 400ms var(--out) both; }
-  .hero__h1-a {
-    animation: block-rise 600ms var(--out) 80ms both;
-  }
-  .hero__h1-b { animation: spray 800ms var(--inout) 450ms both; }
-  .hero__lead { animation: rise-12 500ms var(--out) 500ms both; }
-  .hero__ctas { animation: rise-12 500ms var(--out) 600ms both; }
-  .hero__awards { animation: rise-12 500ms var(--out) 700ms both; }
-  .hero__media .media > * { animation: settle 1400ms var(--out) both; }
-  .hero__sticker { animation: slap 420ms var(--pop) 700ms both; }
-  .hero__media .sparkle--a { animation: sparkle-pop 500ms var(--pop) 900ms both, twinkle 3.6s var(--inout) 1.6s infinite; }
-  .hero__media .sparkle--b { animation: sparkle-pop 500ms var(--pop) 1050ms both; }
-  .hero__media .sparkle--c { animation: sparkle-pop 500ms var(--pop) 1180ms both; }
-  .hero:not(.is-visible) .sparkle--a { animation-play-state: running, paused; }
+  /* ---------- hero load sequence (pure CSS, ~1.3 s), once per browser session ---------- */
+  html:not(.intro-seen) .hero__kicker { animation: rise 400ms var(--out) both; }
+  html:not(.intro-seen) .hero__h1-a { animation: block-rise 600ms var(--out) 80ms both; }
+  html:not(.intro-seen) .hero__h1-b { animation: spray 800ms var(--inout) 450ms both; }
+  html:not(.intro-seen) .hero__lead { animation: rise-12 500ms var(--out) 500ms both; }
+  html:not(.intro-seen) .hero__ctas { animation: rise-12 500ms var(--out) 600ms both; }
+  html:not(.intro-seen) .hero__awards { animation: rise-12 500ms var(--out) 700ms both; }
+  html:not(.intro-seen) .hero__media .media > * { animation: settle 1400ms var(--out) both; }
+  html:not(.intro-seen) .hero__sticker { animation: slap 420ms var(--pop) 700ms both; }
+  html:not(.intro-seen) .hero__media .sparkle--b { animation: sparkle-pop 500ms var(--pop) 1050ms both; }
+  html:not(.intro-seen) .hero__media .sparkle--c { animation: sparkle-pop 500ms var(--pop) 1180ms both; }
+  html:not(.intro-seen) .hero__media .sparkle--a { animation: sparkle-pop 500ms var(--pop) 900ms both, twinkle 3.6s var(--inout) 1.6s infinite; }
+  html.intro-seen .hero__media .sparkle--a { animation: twinkle 3.6s var(--inout) infinite; }
+  /* looping motion pauses while the hero is off-screen */
+  html:not(.intro-seen) .hero:not(.is-visible) .sparkle--a { animation-play-state: running, paused; }
+  html.intro-seen .hero:not(.is-visible) .sparkle--a { animation-play-state: paused; }
 
   /* ---------- scroll reveals ---------- */
   html.js [data-reveal='up'],
@@ -115,22 +116,8 @@
   }
 }
 
-/* reduced motion: 200 ms opacity only, no transforms, masks or loops */
-@media (prefers-reduced-motion: reduce) {
-  html.js [data-reveal='up'],
-  html.js [data-reveal='stagger'] > * {
-    opacity: 0;
-    transition: opacity 200ms linear;
-  }
-  html.js [data-reveal='up'].is-in,
-  html.js [data-reveal='stagger'].is-in > * { opacity: 1; }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
+/* reduced motion: nothing moves and nothing fades; every animation above lives in
+   (prefers-reduced-motion: no-preference), so content is simply there. */
 
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
 @keyframes rise-12 { from { opacity: 0; transform: translateY(12px); } }
@@ -154,7 +141,7 @@
   100% { opacity: 1; transform: none; }
 }
 @keyframes sparkle-pop {
-  from { opacity: 0; transform: scale(0) rotate(45deg); }
+  from { opacity: 0; transform: scale(0.6) rotate(45deg); }
   to { opacity: 1; transform: none; }
 }
 @keyframes twinkle {
@@ -168,5 +155,5 @@
   to { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .picker__idea { transition: none !important; transform: none !important; }
+  form.picker .picker__idea { transition: none; transform: none; }
 }

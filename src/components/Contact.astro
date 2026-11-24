@@ -81,8 +81,11 @@ const socials = [
   .contact__person a {
     color: var(--white);
   }
-  .contact__person a:hover {
-    color: var(--cream);
+  @media (hover: hover) and (pointer: fine) {
+    .contact__person a:hover,
+    .contact__social a:hover {
+      color: var(--cream);
+    }
   }
   .contact__logo {
     flex: 0 1 340px;
@@ -113,8 +116,5 @@ const socials = [
     align-items: center;
     min-height: 44px;
     color: var(--white);
-  }
-  .contact__social a:hover {
-    color: var(--cream);
   }
 </style>
