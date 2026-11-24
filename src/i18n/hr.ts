@@ -172,7 +172,8 @@ export const hr: Dict = {
     h2: '70+ objava u 2026.',
     lead: 'TV prilozi na Novoj TV, članci u Slobodnoj Dalmaciji, 24sata i drugim medijima.',
     outlets: ['Index.hr', 'Vogue Adria', 'Fashion.hr', 'Journal.hr', 'Journal.rs', 'HRT', 'Dnevnik.hr', 'Dalmatinski portal', 'Slobodna Dalmacija'],
-    articleAlt: 'Medijska objava o GNG-u 2026.',
+    articleAlt: 'snimka zaslona članka',
+    coveredBy: 'Pisali su',
   },
   music: {
     kicker: 'Glazba',

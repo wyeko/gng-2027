@@ -3,38 +3,123 @@ import Section from './ui/Section.astro';
 import SectionHead from './ui/SectionHead.astro';
 import Photo from './ui/Photo.astro';
 import { siteSet } from '../lib/assets';
+import { mediaArticles } from '../data/media';
 import { t, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
 }
 const d = t(Astro.props.lang).media;
-// article cards carried over from the current site (medij-1..4.webp)
-const articles = siteSet('medij-');
+const shots = new Map(siteSet('medij-').map((img) => [img.name, img.src]));
+const articles = mediaArticles.flatMap((a) => {
+  const src = shots.get(a.file);
+  return src ? [{ ...a, src }] : [];
+});
 ---
 
 <Section id="media" bg="mesh">
   <SectionHead id="media" kicker={d.kicker} lead={d.lead}>{d.h2}</SectionHead>
-  <ul class="chips media__outlets" aria-label={d.kicker} data-reveal="stagger">
-    {d.outlets.map((o) => <li class="chip chip--outlet">{o}</li>)}
-  </ul>
+
   {
     articles.length > 0 && (
-      <ul class="media__articles" role="list" data-reveal="stagger">
-        {articles.map((a) => (
-          <li>
-            <Photo src={a.src} alt={d.articleAlt} sizes="(min-width: 1024px) 300px, 50vw" class="media__article" />
-          </li>
-        ))}
+      <ul class="clips rail" role="list" tabindex="0" aria-label={d.kicker} data-reveal="stagger">
+        {articles.map((a) => {
+          const card = (
+            <>
+              <Photo
+                src={a.src}
+                alt={`${a.outlet}, ${d.articleAlt}: „${a.headline}”`}
+                ratio={`${a.src.width} / ${a.src.height}`}
+                sizes="(min-width: 1024px) 280px, 60vw"
+              />
+              <figcaption class="k clip__outlet">{a.outlet}</figcaption>
+            </>
+          );
+          return (
+            <li class="clip">
+              {a.url ? (
+                <a class="clip__card" href={a.url} rel="noopener" target="_blank">
+                  <figure>{card}</figure>
+                </a>
+              ) : (
+                <figure class="clip__card">{card}</figure>
+              )}
+            </li>
+          );
+        })}
       </ul>
     )
   }
-  {/* TODO: copy medij-1..4.webp (and their article links) from the current site into src/assets/site/ */}
+
+  <div class="media__outlets" data-reveal="up">
+    <p class="k c-magenta">{d.coveredBy}</p>
+    <ul class="chips" aria-label={d.coveredBy}>
+      {d.outlets.map((o) => <li class="chip chip--outlet">{o}</li>)}
+    </ul>
+  </div>
 </Section>
 
 <style>
+  /* press clippings: a slight tilt, like cut-outs pinned to the wall; never cropped */
+  .clips {
+    --rail-w: min(60vw, 280px);
+    align-items: start;
+    margin: 0 0 36px;
+    padding-block: 14px;
+  }
+  @media (min-width: 900px) {
+    .clips {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: start;
+      gap: 24px;
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+  .clip__card {
+    display: block;
+    margin: 0;
+    padding: 10px 10px 14px;
+    border-radius: var(--r-card);
+    background: var(--white);
+    box-shadow:
+      0 1px 2px rgb(14 47 79 / 0.08),
+      0 14px 30px -18px rgb(14 47 79 / 0.45);
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 250ms var(--out);
+    text-decoration: none;
+    color: inherit;
+  }
+  .clip:nth-child(4n + 1) .clip__card { --tilt: -2deg; }
+  .clip:nth-child(4n + 2) .clip__card { --tilt: 1.5deg; }
+  .clip:nth-child(4n + 3) .clip__card { --tilt: -1deg; }
+  .clip:nth-child(4n + 4) .clip__card { --tilt: 2deg; }
+  /* nested radius: card 24px − 10px inset */
+  .clip__card :global(.media) {
+    border-radius: 14px;
+  }
+  .clip__outlet {
+    display: block;
+    margin-top: 12px;
+    padding-inline: 4px;
+    color: var(--ink);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .clip__card:hover {
+      transform: rotate(0deg) translateY(-4px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .clip__card {
+      transition: none;
+    }
+  }
   .media__outlets {
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
   .chip--outlet {
     min-height: 44px;
@@ -46,23 +131,5 @@ const articles = siteSet('medij-');
     letter-spacing: 0.04em;
     text-transform: uppercase;
     background: var(--card);
-  }
-  .media__articles {
-    margin: 32px 0 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-  }
-  .media__articles :global(.media__article) {
-    background: var(--white);
-  }
-  .media__articles :global(.media__article img) {
-    object-fit: contain;
-  }
-  @media (max-width: 899px) {
-    .media__articles {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
   }
 </style>

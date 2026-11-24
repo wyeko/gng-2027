@@ -170,7 +170,8 @@ export const en = {
     h2: '70+ articles in 2026.',
     lead: 'TV segments on Nova TV, print in Slobodna Dalmacija, 24sata and more.',
     outlets: ['Index.hr', 'Vogue Adria', 'Fashion.hr', 'Journal.hr', 'Journal.rs', 'HRT', 'Dnevnik.hr', 'Dalmatinski portal', 'Slobodna Dalmacija'],
-    articleAlt: 'Media coverage of GNG 2026',
+    articleAlt: 'article screenshot',
+    coveredBy: 'Covered by',
   },
   music: {
     kicker: 'Music',
