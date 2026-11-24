@@ -11,11 +11,10 @@ npm run build      # static output in dist/
 npm run preview    # serve dist/
 ```
 
-Set `SITE_URL` at build time for absolute canonical/hreflang/OG URLs:
+Live: https://gng-2027.vercel.app (Vercel, deploys on every push to `main`).
 
-```bash
-SITE_URL=https://example.com npm run build
-```
+Canonical/hreflang/OG URLs default to that origin. When the site moves to its own
+domain, set `SITE_URL` in Vercel (Settings → Environment Variables) and redeploy.
 
 ## Where things live
 
