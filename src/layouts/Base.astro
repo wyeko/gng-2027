@@ -47,7 +47,13 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- reveal states only apply when JS is running -->
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // if the main script never runs, show everything instead of leaving it hidden
+      setTimeout(function () {
+        if (!window.__gngReady) document.documentElement.classList.remove('js');
+      }, 3000);
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">{d.nav.skip}</a>

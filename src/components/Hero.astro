@@ -17,7 +17,7 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
   <Bg name="mesh" eager />
   <div class="wrap hero__main">
     <div class="hero__copy">
-      <p class="k c-teal hero__kicker">{d.kicker}</p>
+      <p class="k c-magenta hero__kicker">{d.kicker}</p>
       <h1 id="hero-title" class="d h1 hero__h1">
         <span class="hero__h1-a">{d.h1a}</span>
         <span class="hero__h1-b accent">{d.h1b}</span>
@@ -27,8 +27,10 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
         <a class="btn btn--primary" href="#partnership">{d.ctaPrimary}</a>
         <a class="btn btn--outline" href="#aftermovie">{d.ctaSecondary}</a>
       </div>
-      <!-- TODO: source needed for "TOP 10 global street art events" before launch -->
-      <ul class="hero__awards" aria-label={d.awardsLabel}>
+    </div>
+
+    <!-- TODO: source needed for "TOP 10 global street art events" before launch -->
+    <ul class="hero__awards" aria-label={d.awardsLabel}>
         {
           d.awards.map((award) => (
             <li class="award">
@@ -39,8 +41,7 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
             </li>
           ))
         }
-      </ul>
-    </div>
+    </ul>
 
     <div class="hero__media">
       <div class="media cloud hero__video">
@@ -93,14 +94,18 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
     overflow: clip;
   }
   .hero__main {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-areas:
+      'copy media'
+      'awards media';
     align-items: center;
-    gap: 40px;
+    column-gap: 40px;
+    row-gap: 20px;
     padding-bottom: 48px;
   }
   .hero__copy {
-    flex: 1.3 1 560px;
+    grid-area: copy;
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -118,8 +123,10 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
     gap: 12px;
   }
   .hero__awards {
+    grid-area: awards;
+    align-self: start;
     list-style: none;
-    margin: 4px 0 0;
+    margin: 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
@@ -145,9 +152,28 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
   }
 
   .hero__media {
-    flex: 1 1 380px;
+    grid-area: media;
     min-width: 0;
     position: relative;
+  }
+  /* on wide screens the cloud breaks the grid and runs toward the edge */
+  @media (min-width: 1200px) {
+    .hero__media {
+      margin-right: calc(-1 * min(9vw, (100vw - var(--wrap)) / 2 - 24px));
+    }
+  }
+  @media (max-width: 900px) {
+    .hero__main {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'copy'
+        'media'
+        'awards';
+      row-gap: 32px;
+    }
+    .hero__media {
+      max-width: 560px;
+    }
   }
   .hero__video video {
     width: 100%;
@@ -212,9 +238,6 @@ const posterImg = await getImage({ src: poster, width: 600, format: 'webp', qual
     .hero {
       margin-top: -68px;
       padding-top: calc(68px + 16px);
-    }
-    .hero__main {
-      gap: 32px;
     }
     .hero__sticker {
       width: 104px;

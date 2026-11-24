@@ -15,7 +15,7 @@ const d = t(Astro.props.lang).numbers;
 <Section id="numbers" bg="mesh2">
   <div class="numbers">
     <div class="numbers__main">
-      <SectionHead id="numbers" kicker={d.kicker} kickerClass="c-teal">{d.h2}</SectionHead>
+      <SectionHead id="numbers" kicker={d.kicker}>{d.h2}</SectionHead>
       <ul class="numbers__grid" role="list" data-reveal="stagger">
         {
           d.stats.map((s) => (
@@ -30,8 +30,8 @@ const d = t(Astro.props.lang).numbers;
       </ul>
       <div class="numbers__plus" data-reveal="up">
         <p class="k c-magenta">{d.plusLabel}</p>
-        <ul class="chips">
-          {d.plus.map((item) => <li class="chip">{item}</li>)}
+        <ul class="inline-list">
+          {d.plus.map((item) => <li>{item}</li>)}
         </ul>
       </div>
     </div>

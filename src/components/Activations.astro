@@ -47,8 +47,9 @@ const shape: Record<string, { cls?: string; pos?: string }> = {
         return (
           <li class:list={['gallery__item', s.cls && `gallery__item--${s.cls}`]}>
             <Photo src={photo(g.photo)} alt={g.alt} pos={s.pos} sizes="(min-width: 1024px) 600px, (min-width: 640px) 50vw, 100vw">
-              <p class="tag tag--slap k">
-                <span class="tag__brand">{g.brand}</span> · {g.what}
+              <p class="tag tag--slap gtag">
+                <span class="k tag__brand">{g.brand}</span>
+                <span class="tag__what">{g.what}</span>
               </p>
             </Photo>
           </li>
@@ -95,11 +96,23 @@ const shape: Record<string, { cls?: string; pos?: string }> = {
   .gallery__item--wide {
     grid-column: span 2;
   }
-  .tag {
+  .gtag {
     margin: 0;
+    right: auto;
+    max-width: calc(100% - 28px);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 9px 14px 10px;
+    border-radius: 14px;
+    line-height: 1.25;
   }
   .tag__brand {
     color: var(--magenta);
+  }
+  .tag__what {
+    font-size: var(--fs-13);
+    font-weight: 600;
   }
   @media (max-width: 899px) {
     .principles {
@@ -115,12 +128,15 @@ const shape: Record<string, { cls?: string; pos?: string }> = {
       grid-auto-rows: 150px;
       gap: 10px;
     }
-    .gallery .tag {
+    .gallery .gtag {
       left: 8px;
       bottom: 8px;
-      right: 8px;
-      padding: 7px 10px;
-      letter-spacing: 0.06em;
+      max-width: calc(100% - 16px);
+      padding: 7px 10px 8px;
+      border-radius: 12px;
+    }
+    .gallery .tag__what {
+      display: none;
     }
   }
 </style>

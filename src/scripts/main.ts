@@ -1,3 +1,4 @@
+(window as Window & { __gngReady?: boolean }).__gngReady = true;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 /* ---------- scroll reveals (fire once) ---------- */
@@ -15,7 +16,7 @@ function initReveals() {
         io.unobserve(entry.target);
       }
     },
-    { threshold: 0.2, rootMargin: '0px 0px -10% 0px' },
+    { threshold: 0, rootMargin: '0px 0px -12% 0px' },
   );
   targets.forEach((el) => io.observe(el));
 

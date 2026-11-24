@@ -57,10 +57,10 @@
 
   /* stat numbers: masked rise, numbers stay readable (no count-up) */
   /* clip only vertically: the number rises from below its baseline, never cropped sideways */
-  html.js [data-reveal] .rise-num { display: block; clip-path: inset(-0.3em -100vw 0 -100vw); }
+  html.js [data-reveal] .rise-num { display: block; clip-path: inset(-0.3em -100vw -0.25em -100vw); }
   html.js [data-reveal] .rise-num > span {
     display: inline-block;
-    transform: translateY(110%);
+    transform: translateY(140%);
     transition: transform 500ms var(--out) var(--d, 0ms);
   }
   html.js [data-reveal].is-in .rise-num > span { transform: none; }

@@ -14,7 +14,7 @@ const articles = siteSet('medij-');
 ---
 
 <Section id="media" bg="mesh">
-  <SectionHead id="media" kicker={d.kicker} lead={d.lead} split>{d.h2}</SectionHead>
+  <SectionHead id="media" kicker={d.kicker} lead={d.lead}>{d.h2}</SectionHead>
   <ul class="chips media__outlets" aria-label={d.kicker} data-reveal="stagger">
     {d.outlets.map((o) => <li class="chip chip--outlet">{o}</li>)}
   </ul>

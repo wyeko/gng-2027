@@ -14,6 +14,7 @@ const { lang } = Astro.props;
 const d = t(lang).audience;
 const v = d.visitors;
 const ig = d.instagram;
+const fmt = (v: number) => v.toLocaleString(lang === 'hr' ? 'hr-HR' : 'en-GB', { maximumFractionDigits: 1 });
 ---
 
 <Section id="audience" bg="pink">
@@ -44,8 +45,8 @@ const ig = d.instagram;
       </dl>
       <div class="aud__interests">
         <p class="k c-magenta">{v.interestsLabel}</p>
-        <ul class="chips">
-          {v.interests.map((i) => <li class="chip chip--blush">{i}</li>)}
+        <ul class="inline-list">
+          {v.interests.map((i) => <li>{i}</li>)}
         </ul>
       </div>
     </article>
@@ -53,7 +54,7 @@ const ig = d.instagram;
     <article class="card card--solid aud__ages" data-reveal="up" aria-labelledby="aud-ages">
       <div class="aud__chart-head">
         <h3 id="aud-ages" class="k c-teal">{ig.title}</h3>
-        <p class="t-13">{ig.period}</p>
+        <p class="t-13 aud__period">{ig.period}</p>
       </div>
       <p class="d t-32 c-teal aud__highlight">{ig.highlight}</p>
       <MeterList rows={ig.ages} label={ig.title} unit="%" highlight={['25–34', '35–44']} lang={lang} />
@@ -61,9 +62,24 @@ const ig = d.instagram;
     </article>
 
     <article class="card card--solid aud__countries" data-reveal="up" aria-labelledby="aud-countries">
-      <h3 id="aud-countries" class="k c-teal">{ig.countriesTitle}</h3>
-      <p class="t-13 aud__period">{ig.period}</p>
-      <MeterList rows={ig.countries} label={ig.countriesTitle} unit="%" lang={lang} />
+      <div class="aud__chart-head">
+        <h3 id="aud-countries" class="k c-teal">{ig.countriesTitle}</h3>
+        <p class="t-13 aud__period">{ig.period}</p>
+      </div>
+      <p class="aud__lead-country">
+        <span class="d t-40 c-teal">{fmt(ig.countries[0].value)}%</span>
+        <span class="t-18">{ig.countries[0].label}</span>
+      </p>
+      <dl class="aud__countries-list">
+        {
+          ig.countries.slice(1).map((c) => (
+            <div>
+              <dt>{c.label}</dt>
+              <dd>{fmt(c.value)}%</dd>
+            </div>
+          ))
+        }
+      </dl>
     </article>
   </div>
 </Section>
@@ -132,9 +148,31 @@ const ig = d.instagram;
   }
   .aud__chart-head {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .aud__lead-country {
+    display: flex;
     align-items: baseline;
     gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--light-blue);
+  }
+  .aud__countries-list {
+    margin: 0;
+    display: grid;
+  }
+  .aud__countries-list > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--light-blue);
+  }
+  .aud__countries-list dd {
+    margin: 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
   }
   .aud__highlight {
     margin-bottom: 4px;
@@ -145,9 +183,7 @@ const ig = d.instagram;
     border-top: 1px solid var(--light-blue);
     line-height: 1.6;
   }
-  .aud__period {
-    margin-top: -10px;
-  }
+
   @media (max-width: 1023px) {
     .aud__photo,
     .aud__visitors,
